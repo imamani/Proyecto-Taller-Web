@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Pedido - SalvaComida</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗 SalvaComida</a>
+    <button id="hamburger-btn" class="hamburger-btn"
+      aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <ul class="flex" id="nav-menu">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="menu.html">Menú</a></li>
+      <li><a href="ofertas.html">🔥 Ofertas</a></li>
+      <li><a href="login.html" class="btn btn-naranja btn-auto" style="padding:.5rem 1rem">Ingresar</a></li>
+    </ul>
+  </nav>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <header class="banner">
+    <h1 class="title">🛒 Formulario de Pedido</h1>
+    <p>Completa tu pedido de rescate alimentario</p>
+  </header>
+  <form class="container layout-pedido" id="form-compras">
+    <div class="card">
+      <h2 class="title mb-1 border-bottom">📋 Datos del cliente</h2>
+      <div class="fila-doble">
+        <div class="form-grupo"><label>Nombre del cliente</label><input type="text" id="nombre_cliente" readonly />
+        </div>
+        <div class="form-grupo"><label>Teléfono</label><input type="tel" id="telefono" required /></div>
+      </div>
+      <div class="fila-doble">
+        <div class="form-grupo"><label>Dirección de entrega</label><input type="text" id="direccion" required /></div>
+        <div class="form-grupo"><label>Método</label>
+          <select id="metodo">
+            <option value="delivery">🚗 Delivery (+ S/ 3.00)</option>
+            <option value="recojo">🏃 Recojo (Gratis)</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-grupo">
+        <label class="mb-1">¿Qué platos deseas rescatar hoy?</label>
+        <div class="platos-grid">
+          <div class="plato-card-content" data-id="lomo_pasta"><span class="card-img text-center">🍝</span><span
+              class="font-bold">Lomo Saltado</span><span class="precio-check">S/ 16.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="ensalada_cesar"><span class="card-img text-center">🥗</span><span
+              class="font-bold">Ensalada César</span><span class="precio-check">S/ 12.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="pollo_brasa"><span class="card-img text-center">🍗</span><span
+              class="font-bold">Pollo a la Brasa</span><span class="precio-check">S/ 20.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="menu_dia"><span class="card-img text-center">🍱</span><span
+              class="font-bold">Menú del Día</span><span class="precio-check">S/ 13.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="tiramisu"><span class="card-img text-center">🍰</span><span
+              class="font-bold">Tiramisú</span><span class="precio-check">S/ 9.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="smoothie"><span class="card-img text-center">🥤</span><span
+              class="font-bold">Smoothie Verde</span><span class="precio-check">S/ 7.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="tallarines_verdes"><span class="card-img text-center">🍝</span><span
+              class="font-bold">Tallarines Verdes</span><span class="precio-check">S/ 18.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="rocoto_relleno"><span class="card-img text-center">🌶️</span><span
+              class="font-bold">Rocoto Relleno</span><span class="precio-check">S/ 22.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="alitas_bbq"><span class="card-img text-center">🍗</span><span
+              class="font-bold">Alitas BBQ</span><span class="precio-check">S/ 15.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="crema_volteada"><span class="card-img text-center">🍮</span><span
+              class="font-bold">Crema Volteada</span><span class="precio-check">S/ 8.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="chicha_morada"><span class="card-img text-center">🍷</span><span
+              class="font-bold">Chicha Morada</span><span class="precio-check">S/ 6.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="ensalada_quinua"><span class="card-img text-center">🥗</span><span
+              class="font-bold">Ensalada Quinua</span><span class="precio-check">S/ 10.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="ceviche_mixto"><span class="card-img text-center">🐟</span><span
+              class="font-bold">Ceviche Mixto</span><span class="precio-check">S/ 30.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="aji_gallina"><span class="card-img text-center">🍛</span><span
+              class="font-bold">Ají de Gallina</span><span class="precio-check">S/ 18.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="arroz_chaufa"><span class="card-img text-center">🍚</span><span
+              class="font-bold">Arroz Chaufa</span><span class="precio-check">S/ 20.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="causa_limena"><span class="card-img text-center">🥔</span><span
+              class="font-bold">Causa Limeña</span><span class="precio-check">S/ 12.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="tequenos"><span class="card-img text-center">🧀</span><span
+              class="font-bold">Tequeños</span><span class="precio-check">S/ 10.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="jugo_maracuya"><span class="card-img text-center">🍹</span><span
+              class="font-bold">Jugo Maracuyá</span><span class="precio-check">S/ 7.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="pizza_hawaiana"><span class="card-img text-center">🍕</span><span
+              class="font-bold">Pizza Hawaiana</span><span class="precio-check">S/ 25.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="lasagna_carne"><span class="card-img text-center">🍝</span><span
+              class="font-bold">Lasagna Carne</span><span class="precio-check">S/ 22.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="picarones"><span class="card-img text-center">🍩</span><span
+              class="font-bold">Picarones</span><span class="precio-check">S/ 10.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+          <div class="plato-card-content" data-id="helado_artesanal"><span class="card-img text-center">🍨</span><span
+              class="font-bold">Helado Artesanal</span><span class="precio-check">S/ 8.00</span>
+            <div class="cant-control"><button class="btn-cant btn-menos">-</button><span
+                class="cant-numero font-bold">0</span><button class="btn-cant btn-mas">+</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="form-grupo mt-1"><label>Notas adicionales</label><textarea id="notas"
+          placeholder="Instrucciones..."></textarea></div>
+    </div>
+    <div class="flex flex-col">
+      <div class="card mb-1">
+        <h3 class="title mb-1 border-bottom">Resumen</h3>
+        <div id="resumen-lista-platos" class="mb-1">
+          <p class="text-gris-oscuro">Carrito vacío.</p>
+        </div>
+        <div class="flex justify-between mb-1 pt-1 border-top"><span>Subtotal</span><span id="resumen-subtotal">S/
+            0.00</span></div>
+        <div class="flex justify-between font-bold mb-1 border-bottom"><span
+            id="resumen-texto-entrega">Delivery</span><span id="resumen-delivery">S/ 3.00</span></div>
+        <div class="flex justify-between font-bold" style="font-size:1.2rem"><span>Total</span><span
+            id="resumen-total-final" class="text-rojo">S/ 0.00</span></div>
+      </div>
+      <div class="card">
+        <h3 class="title mb-1 border-bottom">💳 Pago</h3>
+        <div class="flex justify-between mb-1 mt-1">
+          <label class="pago-radio"><input type="radio" name="metodo_pago" value="Yape" checked />
+            <div class="card p-1 text-center font-bold" style="cursor:pointer">Yape</div>
+          </label>
+          <label class="pago-radio"><input type="radio" name="metodo_pago" value="Plin" />
+            <div class="card p-1 text-center font-bold" style="cursor:pointer">Plin</div>
+          </label>
+          <label class="pago-radio"><input type="radio" name="metodo_pago" value="Tarjeta" />
+            <div class="card p-1 text-center font-bold" style="cursor:pointer">Tarjeta</div>
+          </label>
+        </div>
+
+        <!-- Formulario de tarjeta extendido -->
+        <div id="formulario-tarjeta" style="display:none; background:#fafafa; border:1px solid #eee" class="card mt-1">
+          <div class="form-grupo mb-1">
+            <label>Número de Tarjeta</label>
+            <input type="text" id="numero_tarjeta" placeholder="0000 0000 0000 0000" maxlength="19"
+              oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/(\d{4})(?=\d)/g, '$1 ')" />
+          </div>
+          <div class="fila-doble">
+            <div class="form-grupo">
+              <label>Expira (MM/AA)</label>
+              <input type="text" id="fecha_tarjeta" placeholder="MM/AA" maxlength="5"
+                oninput="this.value = this.value.replace(/[^0-9/]/g, '').replace(/^(\d{2})(\d)/g, '$1/$2')" />
+            </div>
+            <div class="form-grupo">
+              <label>CVV</label>
+              <input type="password" id="cvv_tarjeta" placeholder="***" maxlength="3"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-naranja mt-1">📦 Confirmar y Pagar</button>
+      </div>
+  </form>
+  <div id="pantalla-carga" class="pantalla-carga">
+    <div class="spinner" id="spinner-carga"></div>
+    <div id="icono-exito" class="text-center" style="display:none; font-size:4rem">✅</div>
+    <h3 class="title mt-1">Procesando pago seguro...</h3>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/tienda.js"></script>
+</body>
+
+</html>

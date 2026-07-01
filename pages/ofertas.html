@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ofertas Especiales - SalvaComida</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗 SalvaComida</a>
+    <button id="hamburger-btn" class="hamburger-btn"
+      aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <ul class="flex" id="nav-menu">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="menu.html">Menú</a></li>
+      <li><a href="ofertas.html">🔥 Ofertas</a></li>
+      <li><a href="login.html" class="btn btn-naranja btn-auto" style="padding:.5rem 1rem">Ingresar</a></li>
+    </ul>
+  </nav>
+  <div id="sidebar-overlay" class="sidebar-overlay"></div>
+  <header class="banner"
+    style="margin:0; border-radius:0; max-width:100%; background:linear-gradient(135deg, var(--rojo), var(--naranja))">
+    <h1 class="title mb-1">🔥 Ofertas Especiales</h1>
+    <p>Los mejores descuentos del día de rescate alimentario.</p>
+  </header>
+  <section class="container mt-2">
+    <h2 class="title mb-1 border-bottom pb-1" style="font-size:2rem">⭐ Oferta del Día</h2>
+    <div class="card flex flex-wrap items-center mb-2" style="background:#fff3cd; border:2px solid orange; gap:40px">
+      <div style="font-size:6rem">🍱</div>
+      <div class="card-body">
+        <p class="font-bold text-verde mb-1" style="text-transform:uppercase">Sabor Peruano</p>
+        <h3 class="title mb-1" style="font-size:2rem">Menú del Día Completo</h3>
+        <p class="text-gris-oscuro mb-1">Sopa, segundo criollo y refresco. El menú más completo y nutritivo de Arequipa.
+        </p>
+        <div class="flex items-center mb-1">
+          <s class="text-gris-oscuro" style="font-size:1.2rem">S/ 27.00</s>
+          <span class="font-bold title text-rojo" style="font-size:1.8rem">S/ 13.00</span>
+          <span class="btn-rojo text-blanco p-1 border-radius"
+            style="border-radius:8px; padding:.2rem .8rem; font-weight:bold">-52%</span>
+        </div>
+        <a href="form_pedido.html?plato=menu_dia" class="btn btn-rojo btn-auto">🛒 Pedir ahora</a>
+      </div>
+    </div>
+  </section>
+  <section class="container">
+    <h2 class="title mb-1 border-bottom pb-1">🏷️ Todas las Ofertas</h2>
+    <div class="grid">
+      <div class="card oferta-card" style="position:relative">
+        <div
+          style="position:absolute; top:0; left:0; background:var(--rojo); color:#fff; padding:.2rem .8rem; border-radius:16px 0 16px 0; font-weight:bold; font-size:.8rem; z-index:2">
+          -43%</div>
+        <div class="card-img" style="border:none">🍝</div>
+        <div class="card-body text-center">
+          <p class="font-bold text-verde mb-1" style="font-size:.75rem; text-transform:uppercase">La Trattoria</p>
+          <h3 class="title mb-1">Lomo Saltado con Pasta</h3>
+          <div class="flex justify-center items-center mb-1 gap-1 border-top pt-1 mt-1"><s>S/ 28.00</s><span
+              class="font-bold text-rojo title" style="font-size:1.5rem">S/ 16.00</span></div><a
+            href="form_pedido.html?plato=lomo_pasta" class="btn btn-naranja">Pedir ya →</a>
+        </div>
+      </div>
+      <div class="card oferta-card" style="position:relative">
+        <div
+          style="position:absolute; top:0; left:0; background:var(--rojo); color:#fff; padding:.2rem .8rem; border-radius:16px 0 16px 0; font-weight:bold; font-size:.8rem; z-index:2">
+          -45%</div>
+        <div class="card-img" style="border:none">🥗</div>
+        <div class="card-body text-center">
+          <p class="font-bold text-verde mb-1" style="font-size:.75rem; text-transform:uppercase">Verde Vivo</p>
+          <h3 class="title mb-1">Ensalada César Especial</h3>
+          <div class="flex justify-center items-center mb-1 gap-1 border-top pt-1 mt-1"><s>S/ 22.00</s><span
+              class="font-bold text-rojo title" style="font-size:1.5rem">S/ 12.00</span></div><a
+            href="form_pedido.html?plato=ensalada_cesar" class="btn btn-naranja">Pedir ya →</a>
+        </div>
+      </div>
+      <div class="card oferta-card" style="position:relative">
+        <div
+          style="position:absolute; top:0; left:0; background:var(--rojo); color:#fff; padding:.2rem .8rem; border-radius:16px 0 16px 0; font-weight:bold; font-size:.8rem; z-index:2">
+          -43%</div>
+        <div class="card-img" style="border:none">🍗</div>
+        <div class="card-body text-center">
+          <p class="font-bold text-verde mb-1" style="font-size:.75rem; text-transform:uppercase">Sabor Peruano</p>
+          <h3 class="title mb-1">Pollo a la Brasa</h3>
+          <div class="flex justify-center items-center mb-1 gap-1 border-top pt-1 mt-1"><s>S/ 35.00</s><span
+              class="font-bold text-rojo title" style="font-size:1.5rem">S/ 20.00</span></div><a
+            href="form_pedido.html?plato=pollo_brasa" class="btn btn-naranja">Pedir ya →</a>
+        </div>
+      </div>
+      <div class="card oferta-card" style="position:relative">
+        <div
+          style="position:absolute; top:0; left:0; background:var(--rojo); color:#fff; padding:.2rem .8rem; border-radius:16px 0 16px 0; font-weight:bold; font-size:.8rem; z-index:2">
+          -50%</div>
+        <div class="card-img" style="border:none">🍰</div>
+        <div class="card-body text-center">
+          <p class="font-bold text-verde mb-1" style="font-size:.75rem; text-transform:uppercase">La Trattoria</p>
+          <h3 class="title mb-1">Tiramisú Artesanal</h3>
+          <div class="flex justify-center items-center mb-1 gap-1 border-top pt-1 mt-1"><s>S/ 18.00</s><span
+              class="font-bold text-rojo title" style="font-size:1.5rem">S/ 9.00</span></div><a
+            href="form_pedido.html?plato=tiramisu" class="btn btn-naranja">Pedir ya →</a>
+        </div>
+      </div>
+      <div class="card oferta-card" style="position:relative">
+        <div
+          style="position:absolute; top:0; left:0; background:var(--rojo); color:#fff; padding:.2rem .8rem; border-radius:16px 0 16px 0; font-weight:bold; font-size:.8rem; z-index:2">
+          -50%</div>
+        <div class="card-img" style="border:none">🥤</div>
+        <div class="card-body text-center">
+          <p class="font-bold text-verde mb-1" style="font-size:.75rem; text-transform:uppercase">Verde Vivo</p>
+          <h3 class="title mb-1">Smoothie Verde Detox</h3>
+          <div class="flex justify-center items-center mb-1 gap-1 border-top pt-1 mt-1"><s>S/ 14.00</s><span
+              class="font-bold text-rojo title" style="font-size:1.5rem">S/ 7.00</span></div><a
+            href="form_pedido.html?plato=smoothie" class="btn btn-naranja">Pedir ya →</a>
+        </div>
+      </div>
+      <div class="card oferta-card" style="position:relative">
+        <div
+          style="position:absolute; top:0; left:0; background:var(--rojo); color:#fff; padding:.2rem .8rem; border-radius:16px 0 16px 0; font-weight:bold; font-size:.8rem; z-index:2">
+          -31%</div>
+        <div class="card-img" style="border:none">🍝</div>
+        <div class="card-body text-center">
+          <p class="font-bold text-verde mb-1" style="font-size:.75rem; text-transform:uppercase">Sabor Peruano</p>
+          <h3 class="title mb-1">Tallarines Verdes</h3>
+          <div class="flex justify-center items-center mb-1 gap-1 border-top pt-1 mt-1"><s>S/ 26.00</s><span
+              class="font-bold text-rojo title" style="font-size:1.5rem">S/ 18.00</span></div><a
+            href="form_pedido.html?plato=tallarines_verdes" class="btn btn-naranja">Pedir ya →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/tienda.js"></script>
+</body>
+
+</html>

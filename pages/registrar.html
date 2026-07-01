@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - SalvaComida</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗 SalvaComida</a>
+    <ul class="flex">
+      <li><a href="login.html">Iniciar sesión</a></li>
+    </ul>
+  </nav>
+  <div class="auth-page">
+    <div class="auth-bg">
+      <div style="font-size:5rem" class="mb-1">🥗</div>
+      <h2 class="title mb-1" style="font-size:2rem">Rescata alimentos, ahorra</h2>
+      <p class="mb-2">Únete a miles de personas que ya están reduciendo el desperdicio en Arequipa.</p>
+      <div class="flex flex-col gap-1 w-100 text-left font-bold" style="max-width:300px">
+        <div class="card p-1" style="background:rgba(255,255,255,.9); color:#333; border:none">💸 70% de descuento</div>
+        <div class="card p-1" style="background:rgba(255,255,255,.9); color:#333; border:none">🚀 Pedidos listos en
+          minutos</div>
+        <div class="card p-1" style="background:rgba(255,255,255,.9); color:#333; border:none">🌍 Contribuye al planeta
+        </div>
+      </div>
+    </div>
+    <div class="auth-form" style="overflow-y:auto; padding:2rem 1rem">
+      <div class="auth-box">
+        <h2 class="title text-center">Crear cuenta</h2>
+        <p class="text-center text-gris-oscuro mb-2">Es gratis y solo toma un momento</p>
+        <form id="form-registro" autocomplete="off">
+          <p class="font-bold text-verde mt-1 mb-1 border-bottom" style="font-size:.8rem; text-transform:uppercase">
+            Datos personales</p>
+          <div class="fila-doble">
+            <div class="form-grupo"><label for="reg-nombre">Nombre completo</label>
+              <div class="input-icon"><span>👤</span><input type="text" id="reg-nombre" placeholder="Ej. Ana López"
+                  required /></div>
+            </div>
+            <div class="form-grupo"><label for="reg-telefono">Teléfono</label>
+              <div class="input-icon"><span>📱</span><input type="tel" id="reg-telefono" placeholder="987654321"
+                  required /></div>
+            </div>
+          </div>
+          <div class="form-grupo"><label for="reg-correo">Correo electrónico</label>
+            <div class="input-icon"><span>✉️</span><input type="email" id="reg-correo" placeholder="tu@correo.com"
+                required /></div>
+          </div>
+          <div class="form-grupo"><label for="reg-direccion">Dirección de entrega</label>
+            <div class="input-icon"><span>📍</span><input type="text" id="reg-direccion"
+                placeholder="Av. Principal, Arequipa" required /></div>
+          </div>
+          <div class="form-grupo">
+            <label for="reg-password">Contraseña</label>
+            <div class="input-icon"><span>🔒</span><input type="password" id="reg-password"
+                placeholder="Mínimo 8 caracteres" minlength="8" required /></div>
+            <div class="flex gap-1 mt-1">
+              <div class="barra" id="barra1"></div>
+              <div class="barra" id="barra2"></div>
+              <div class="barra" id="barra3"></div>
+            </div>
+          </div>
+          <div class="form-grupo"><label for="reg-confirm">Confirmar contraseña</label>
+            <div class="input-icon"><span>🔐</span><input type="password" id="reg-confirm"
+                placeholder="Repite tu contraseña" required /></div>
+          </div>
+          <button type="button" id="btn-registrar" class="btn mt-1">✅ Crear mi cuenta gratis</button>
+        </form>
+        <div class="text-center mt-2 font-bold"><a href="login.html" class="text-verde">¿Ya tienes cuenta? Inicia
+            sesión</a></div>
+      </div>
+    </div>
+  </div>
+  <div class="toast font-bold" id="toast-registro">✅ ¡Cuenta creada! Redirigiendo...</div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script>
+    const campoPassword = document.getElementById('reg-password');
+    campoPassword.addEventListener('input', function () {
+      const valor = campoPassword.value;
+      let fuerza = 0;
+      if (valor.length >= 8) fuerza++;
+      if (valor.length >= 10) fuerza++;
+      if (/[A-Z]/.test(valor) && /[0-9]/.test(valor)) fuerza++;
+      ['barra1', 'barra2', 'barra3'].forEach(function (id, indice) {
+        const barra = document.getElementById(id);
+        barra.className = 'barra';
+        if (indice < fuerza) {
+          if (fuerza === 1) barra.classList.add('debil');
+          else if (fuerza === 2) barra.classList.add('medio');
+          else barra.classList.add('fuerte');
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,682 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap");
+
+/*DICCIONARIO DE COLORES*/
+:root { 
+  --verde: #2d6a4f;
+  --verde-claro: #74c69d;
+  --naranja: #f4845f;
+  --rojo: #e63946;
+  --gris: #f8f9fa;
+  --gris-oscuro: #6c757d;
+  --texto: #495057;
+}
+
+* { /*SELECTOR GLOBAL PARA UN RESETEO COMPLETO DE CSS */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* rellenos y los bordes deben calcularse hacia adentro*/
+  font-family: "Lato", sans-serif;
+}
+body { 
+  background: var(--gris);
+  color: #1b1b1b;
+  line-height: 1.5;
+}
+a { 
+  text-decoration: none;
+  color: inherit;
+}
+ul { 
+  list-style: none;
+}
+.title,
+h1, h2, h3 { 
+  font-family: "Playfair Display", serif;
+}
+
+/*Clases Utilitarias*/
+.text-center { 
+  text-align: center;
+}
+.text-right { 
+  text-align: right;
+}
+.text-left { 
+  text-align: left;
+}
+.text-rojo { 
+  color: var(--rojo);
+}
+.text-verde { 
+  color: var(--verde);
+}
+.text-verde-claro { 
+  color: var(--verde-claro);
+}
+.text-blanco { 
+  color: #fff;
+}
+.text-gris-oscuro { 
+  color: var(--gris-oscuro);
+}
+.font-bold {
+  font-weight: 700;
+}
+.mt-1 { 
+  margin-top: 1rem;
+}
+.mt-2 { 
+  margin-top: 2rem;
+}
+.mb-1 { 
+  margin-bottom: 1rem;
+}
+.mb-2 { 
+  margin-bottom: 2rem;
+}
+.pt-1 { 
+  padding-top: 1rem;
+}
+.pb-1 { 
+  padding-bottom: 1rem;
+}
+.p-1 { 
+  padding: 1rem;
+}
+.h-100 { 
+  height: 100%;
+}
+.border-top { 
+  border-top: 1px solid #dee2e6;
+}
+.border-bottom { 
+  border-bottom: 1px solid #dee2e6;
+}
+.border-radius { 
+  border-radius: 8px;
+}
+.w-100 {
+  width: 100%;
+}
+
+/* Layout & Grid */
+.container { 
+  max-width: fill;
+  margin: 0 auto;
+  padding: 2rem;
+}
+.flex { 
+  display: flex;
+  gap: 1rem;
+}
+.flex-col { 
+  flex-direction: column;
+}
+.items-center {
+  align-items: center;
+}
+.justify-center { 
+  justify-content: center;
+}
+.justify-between { 
+  justify-content: space-between;
+}
+.flex-grow { 
+  flex-grow: 1;
+}
+.flex-wrap { 
+    flex-wrap: wrap;
+}
+.grid { /* index.html, ofertas.html, menu.html "Crea cuadrícula responsiva base" */
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+  justify-content: center;
+}
+.layout-sidebar {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+}
+.layout-pedido { 
+  display: grid;
+  grid-template-columns: 2.5fr 1fr;
+  gap: 2rem;
+}
+.fila-doble {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* BARRA DE NAVEGACION */
+.navbar { 
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--verde);
+  color: #fff;
+  position: sticky; /* PERMANECE FIJO MIENTRAS SE HACE SCROLL */
+  top: 0;
+  z-index: 1000;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.navbar a { 
+  color: #fff;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: 0.2s;
+}
+.navbar a:hover { 
+  background: rgba(255, 255, 255, 0.2);
+}
+.btn-nav-cta { /* Botón Ingresar en la barra superior */
+  background: var(--naranja);
+  border-radius: 20px;
+}
+
+/* BOTON DE HAMBURGUESA */
+.hamburger-btn { /* Botón de 3 rayas para móviles" */
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 38px;
+  height: 38px;
+  background: rgba(255, 255, 255, 0.15);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 0;
+}
+.hamburger-btn span { 
+  display: block;
+  width: 22px;
+  height: 3px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
+/* Overlay oscuro detrás del sidebar */
+.sidebar-overlay { /* Fondo negro  al abrir menú en celular */
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+}
+.sidebar-overlay.mostrar { 
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hamburger-btn { 
+    display: flex;
+  }
+  .navbar #nav-menu { /* TRANSFORMACION DE LA LISTA DE ENLACES A MENÚ LATERAL OCULTO" */
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    max-width: 75vw;
+    background: var(--verde);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5rem 1.5rem 2rem;
+    gap: 0.5rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.2);
+  }
+  .navbar #nav-menu.mostrar {
+    transform: translateX(0);
+  }
+  .navbar #nav-menu li { 
+    width: 100%;
+  }
+  .navbar #nav-menu a { 
+    display: block;
+    width: 100%;
+  }
+}
+
+/* BOTONES */
+.btn { /* Diseño base para todos los botones del sistema */
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  border-radius: 2rem;
+  border: none;
+  font-weight: 700;
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+  background: var(--verde);
+  transition: 0.2s;
+  width: 100%;
+  font-size: 1rem;
+}
+.btn:hover { /* Efecto de brillo y elevación al pasar el ratón por botones" */
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+.btn-naranja { 
+  background: var(--naranja);
+}
+.btn-rojo { 
+  background: var(--rojo);
+}
+.btn-outline { 
+  background: transparent;
+  border: 2px solid currentColor;
+  color: inherit;
+}
+.btn-auto { 
+  width: auto;
+}
+
+/* TARJETAS */
+.card { 
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+.card:hover { 
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.card-img { 
+  font-size: 4.5rem;
+  text-align: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+  display: block;
+}
+.card-body { 
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* FORMULARIOS */
+.form-grupo { 
+  margin-bottom: 1rem;
+  width: 100%;
+}
+.form-grupo label { /* Textos encima de las cajas de escritura */
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--texto);
+  margin-bottom: 0.4rem;
+  text-transform: uppercase;
+}
+.form-grupo input, .form-grupo select, .form-grupo textarea { /* Cajas de escritura donde el usuario teclea */
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 2px solid #dee2e6;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: 0.2s;
+}
+.form-grupo input:focus, .form-grupo select:focus, .form-grupo textarea:focus { 
+  border-color: var(--verde);
+  box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.15);
+}
+.input-icon { 
+  position: relative;
+}
+.input-icon span { 
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+.input-icon input { 
+  padding-left: 2.8rem;
+}
+
+/* BANNERS Y AUTENTIFICACION (AUTH) */
+.hero { /* Sección gigante principal con imagen de fondo */
+  background:
+    linear-gradient(#1b4332dd, #1b4332f0),
+    url("https://images.unsplash.com/photo-1542838132-92c53300491e?q=80")
+      center/cover;
+  color: #fff;
+  padding: 5rem 2rem;
+  text-align: center;
+}
+.hero h1 { 
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.banner { 
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(135deg, var(--naranja), var(--rojo));
+  color: #fff;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  max-width: 1100px;
+  margin: 0 auto;
+  box-shadow: 0 10px 30px rgba(230, 57, 70, 0.2);
+}
+.auth-page { 
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 74px);
+}
+.auth-bg { 
+  background: linear-gradient(160deg, var(--verde), var(--verde-claro));
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  text-align: center;
+}
+.auth-form { 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background: #fafafa;
+}
+.auth-box { 
+  width: 100%;
+  max-width: 420px;
+}
+
+/* UTILIDADES PARA JAVASCRIPT */
+.filtros { /* Contenedor de los botones de filtro que se queda pegado arriba */
+  display: flex;
+  gap: 0.6rem;
+  justify-content: center;
+  padding: 1rem;
+  background: #fff;
+  position: sticky;
+  top: 74px;
+  z-index: 90;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #eee;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
+}
+.filtro-btn { 
+  padding: 0.6rem 1.4rem;
+  border-radius: 30px;
+  border: 2px solid #dee2e6;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.2s;
+  font-size: 0.9rem;
+  color: var(--texto);
+}
+.filtro-btn:hover { 
+  border-color: var(--verde);
+  color: var(--verde);
+}
+.filtro-btn.activo { 
+  background: var(--verde);
+  color: #fff;
+  border-color: var(--verde);
+}
+.platos-grid { 
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* CREA UNA CUADRICULA RESPONSIVA AUTOMATICA SIN NECESIDAD DE "@media queries */
+}
+.plato-card-content { 
+  background: #fff;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  padding: 1rem 5px;
+  text-align: center;
+  transition: 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.plato-card-content.activo { /* EL CODIGO JS (TIENDA.JS) SE EJECUTA SI EL PLATO TIENE UNA CANTIDAD MENJOR A 0 Y VUELVE EL COLOR VERDE */
+  border-color: var(--verde);
+  background: #f0fdf4;
+  box-shadow: 0 4px 12px rgba(45, 106, 79, 0.15);
+}
+.cant-control { 
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.8rem;
+  background: var(--gris);
+  border-radius: 20px;
+  padding: 4px 8px;
+}
+.btn-cant { 
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-cant:hover { 
+  background: var(--verde-claro);
+  border-color: var(--verde);
+  color: #fff;
+}
+.pago-radio input { 
+  display: none;
+}
+.pago-radio input:checked + /* INTERRUPTOR QUE SOLO APLICA CUANDO EL INPUT ESTE SELECCIONADO Y CONECTOR "+" ADYACENTE */
+.card { 
+  border-color: var(--verde);
+  background: #f0fdf4;
+  box-shadow: 0 4px 10px rgba(45, 106, 79, 0.15);
+}
+.dropdown-menu { /* Menú contextual oculto (Mis Datos, Pedidos) */
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 5px);
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 12px;
+  min-width: 180px;
+  overflow: hidden;
+  z-index: 200;
+  border: 1px solid #eee;
+}
+.dropdown-menu.mostrar { /* app.js "darle clic a 'Mi Cuenta' para visualizar el sub-menú" */
+  display: block;
+}
+.dropdown-menu a { 
+  display: block;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  color: #333;
+  font-weight: 700;
+  transition: 0.2s;
+}
+.dropdown-menu a:hover { 
+  background: #f8f9fa;
+  color: var(--verde);
+}
+.toast,
+.pantalla-carga { 
+  position: fixed;
+  z-index: 9999;
+}
+.toast { /*  Oculta por defecto ¡Cuenta creada! */
+  display: none;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--verde);
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 30px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+}
+.pantalla-carga { 
+  display: none;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.9);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+.spinner { /* Círculo animado giratorio indicando "Procesando ..." */
+  width: 60px;
+  height: 60px;
+  border: 5px solid #dee2e6;
+  border-top-color: var(--naranja);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+@keyframes spin { /* Calcula la rotación infinita para el círculo .spinner */
+  to {
+    transform: rotate(360deg);
+  }
+}
+.barra { /* base grises debajo del campo contraseña */
+  height: 4px;
+  flex: 1;
+  background: #dee2e6;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+.debil { /* registrar.html "CAMBIO DE COLOR SI LA CONTRASEÑA ES CORTA" */
+  background: var(--rojo);
+}
+.medio { /* "CAMBIO DE COLOR SI LA CONTRASEÑA ES REGULAR" */
+  background: var(--naranja);
+}
+.fuerte { /* "CAMBIO DE COLOR SI LA CONTRASEÑA ES OPTIMA" */
+  background: var(--verde);
+}
+
+/* Historial de pedidos "pedidos.html" */
+.resumen-vacio { 
+  color: var(--gris-oscuro);
+  text-align: center;
+  padding: 1rem 0;
+}
+.pedido-item { 
+  border: 2px solid #eee;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  transition: 0.2s;
+}
+.pedido-item:hover { 
+  border-color: var(--verde-claro);
+}
+.pedido-header-row { 
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
+  flex-wrap: wrap;
+}
+.pedido-id { 
+  font-weight: 700;
+  display: block;
+}
+.pedido-fecha { 
+  font-size: 0.85rem;
+  color: var(--gris-oscuro);
+  margin-top: 0.2rem;
+}
+.pedido-estado { 
+  padding: 0.3rem 0.9rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+.estado-pendiente { 
+  background: #fff3cd;
+  color: #b8860b;
+}
+.estado-entregado { 
+  background: #d1f5e0;
+  color: var(--verde);
+}
+.pedido-detalles-lista { 
+  font-size: 0.9rem;
+  color: var(--texto);
+  line-height: 1.8;
+}
+.pedido-detalles-info {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--gris-oscuro);
+}
+.pedido-footer-row { 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #eee;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  font-weight: 700;
+}
+.txt-verde-oscuro { 
+  color: var(--verde);
+  font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) { /* En pantallas de tablet, divide las 2 columnas del formulario de pago a 1 columna junta */
+  .layout-pedido {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 768px) { /* Móviles "Modificaciones para pantallas de celulares" */
+  .auth-page { /* Pantalla de login pasa a 1 sola columna (AFECTA A REGISTRAR Y LOGIN) */
+    grid-template-columns: 1fr;
+  }
+  .auth-bg { 
+    display: none;
+  }
+  .layout-sidebar, 
+  .fila-doble { 
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .navbar { /* Acomoda la barra superior para los celulares */
+    justify-content: space-between;
+    padding: 1rem;
+  }
+  .hero { /* Reduce espaciados exagerados de la cabecera principal */
+    padding: 4rem 1.5rem;
+  }
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Perfil - SalvaComida</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <nav class="navbar"><a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗
+      SalvaComida</a></nav>
+  <div class="container layout-sidebar">
+    <div class="card text-center flex flex-col justify-center" style="height:fit-content">
+      <div class="flex justify-center mb-1">
+        <div class="flex items-center justify-center font-bold title"
+          style="width:80px;height:80px;background:var(--verde-claro);border-radius:50%;font-size:2rem;color:#fff">👤
+        </div>
+      </div>
+      <h3 class="title mb-2">Mi Cuenta</h3>
+      <div class="flex flex-col text-left gap-1 border-top pt-1">
+        <a href="perfil.html" class="font-bold text-verde p-1" style="background:var(--gris); border-radius:8px">⚙️ Mis
+          Datos</a>
+        <a href="pedidos.html" class="font-bold p-1">📦 Mis Pedidos</a>
+        <button id="btn-logout" class="btn btn-outline text-rojo mt-1" style="border:none">🚪 Cerrar Sesión</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2 class="title mb-2 border-bottom pb-1">Mis Datos</h2>
+      <form id="form-perfil">
+        <div class="form-grupo">
+          <label for="perf-nombre">Nombre completo</label>
+          <input type="text" id="perf-nombre" placeholder="Tu nombre completo" required />
+        </div>
+        <div class="form-grupo">
+          <label for="perf-telefono">Teléfono</label>
+          <input type="tel" id="perf-telefono" placeholder="987654321" required />
+        </div>
+        <div class="form-grupo">
+          <label for="perf-direccion">Dirección de entrega</label>
+          <input type="text" id="perf-direccion" placeholder="Av. Principal 123, Arequipa" required />
+        </div>
+        <button type="submit" class="btn btn-naranja mt-1 btn-auto">💾 Guardar Cambios</button>
+      </form>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/tienda.js"></script>
+</body>
+
+</html>

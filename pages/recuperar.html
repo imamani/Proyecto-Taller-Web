@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperar Contraseña - SalvaComida</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+  <nav class="navbar"><a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗
+      SalvaComida</a></nav>
+  <div class="auth-page" style="grid-template-columns: 1fr;">
+    <div class="auth-form flex flex-col justify-center items-center h-100">
+      <div class="card auth-box text-center">
+        <h2 class="title mb-1">🔑 Recuperar Contraseña</h2>
+        <p class="mb-2 text-gris-oscuro">Ingresa tu correo y te enviaremos un enlace.</p>
+        <form id="form-recuperar">
+          <div class="form-grupo">
+            <label for="rec-email">Correo electrónico</label>
+            <div class="input-icon"><span>✉️</span><input type="email" id="rec-email" placeholder="tu@correo.com"
+                required /></div>
+          </div>
+          <button type="button" class="btn mt-1">✉️ Enviar Enlace</button>
+        </form>
+        <div class="mt-2 font-bold"><a href="login.html" class="text-verde">← Volver al login</a></div>
+      </div>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/auth.js"></script>
+</body>
+
+</html>
