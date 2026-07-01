@@ -1,8 +1,8 @@
-const miSupabase = supabase.createClient(
+const miSupabase = supabase.createClient( /* CONEXION PRINCIPAL CON LA BASE DE DATOS (SUPABASE)*/
     'https://xuuajupcjxmpglatxmqf.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dWFqdXBjanhtcGdsYXR4bXFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NTkxMjUsImV4cCI6MjA5NTEzNTEyNX0.PSR8OjJxJXD4a6GPiJPl946MsGR2PifJCMNJta9dvXc'
 );
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", async () => { /* Espera a que todo el código HTML de la página termine de cargar antes de ejecutar el JavaScript. */
     // CERRAR SESIÓN (botón de la sidebar "Mi Cuenta" en perfil.html y pedidos.html)
     const btnLogout = document.getElementById('btn-logout');
     if (btnLogout) {
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', cerrarMenu));
     }
 
-    const { data: { session } } = await miSupabase.auth.getSession();
+    const { data: { session } } = await miSupabase.auth.getSession(); /* Pregunta a Supabase si el usuario está logueado. */
     if (session) {
         const btnIngresar = document.querySelector('a[href*="login.html"]'); if (btnIngresar) {
             const { data: perfil } = await miSupabase.from('usuarios').select('nombre_completo').eq('id', session.user.id).single();
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                         dropdown.classList.toggle("mostrar");
                     });
                 }
-                document.addEventListener('click', async (e) => {
+                document.addEventListener('click', async (e) => { /* detecta si haces clic fuera de ese menú y cerrarlo automáticamente. */
                     if (e.target.id === 'btn-cerrar-sesion') {
                         e.preventDefault();
                         await miSupabase.auth.signOut();

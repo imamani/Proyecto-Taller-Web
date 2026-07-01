@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // COMPRAS Y PASAR POR CAJA "FORMPEDIDOS.HTML"
     const formCompras = document.getElementById('form-compras');
     if (formCompras) {
-        const { data: { session } } = await miSupabase.auth.getSession();
+        const { data: { session } } = await miSupabase.auth.getSession(); /* Verifica la sesión. Si no hay, redirige al login. */
         if (!session) { alert("Debes iniciar sesión para comprar."); window.location.href = "/pages/login.html"; return; }
 
         // Obtenemos el stock de la BD SOLO cuando el usuario está en la pantalla de compras
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const { data: inv } = await miSupabase.from('productos').select('id, stock_actual');
         if (inv) inv.forEach(p => mapaStock[p.id] = p.stock_actual);
 
-        const { data: perfil } = await miSupabase.from('usuarios').select('*').eq('id', session.user.id).single();
+        const { data: perfil } = await miSupabase.from('usuarios').select('*').eq('id', session.user.id).single(); /* Autocompleta los campos de nombre, dirección y teléfono del formulario consultando la tabla*/
         if (perfil) {
             document.getElementById('nombre_cliente').value = perfil.nombre_completo || '';
             document.getElementById('direccion').value = perfil.direccion || '';

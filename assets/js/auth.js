@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const confirm = document.getElementById('reg-confirm').value;
                 if (!nombre || !telefono || !correo || !direccion) return mostrarError('Por favor completa todos los campos.');
                 if (password !== confirm) return mostrarError('Las contraseñas no coinciden.');
-                if (password.length < 6) return mostrarError('La contraseña debe tener al menos 6 caracteres.');
+                if (password.length < 8) return mostrarError('La contraseña debe tener al menos 8 caracteres.');
                 btnRegistrar.textContent = "⏳ Creando cuenta...";
                 btnRegistrar.disabled = true;
                 try {
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const { error } = await miSupabase.auth.signInWithPassword({ email: email, password: password });
             if (!error) window.location.href = "/index.html";
             else {
-                mostrarError('Correo o contraseña incorrectos.');
+                mostrarError('Correo o contraseña incorrectos.'); /* Las contraseñas se guardan en auth.users oculto y propio de supabse como seguridad */
                 loginBtn.textContent = "🔑 Iniciar Sesión";
                 loginBtn.disabled = false;
             }
