@@ -36,31 +36,31 @@
       <div class="auth-box">
         <h2 class="title text-center">Crear cuenta</h2>
         <p class="text-center text-gris-oscuro mb-2">Es gratis y solo toma un momento</p>
-        <form id="form-registro" autocomplete="off">
+        <form id="form-registro" autocomplete="on">
           <p class="font-bold text-verde mt-1 mb-1 border-bottom" style="font-size:.8rem; text-transform:uppercase">
             Datos personales</p>
           <div class="fila-doble">
             <div class="form-grupo"><label for="reg-nombre">Nombre completo</label>
               <div class="input-icon"><span>👤</span><input type="text" id="reg-nombre" placeholder="Ej. Ana López"
-                  required /></div>
+                  autocomplete="name" required /></div>
             </div>
             <div class="form-grupo"><label for="reg-telefono">Teléfono</label>
               <div class="input-icon"><span>📱</span><input type="tel" id="reg-telefono" placeholder="987654321"
-                  required /></div>
+                  autocomplete="tel" required /></div>
             </div>
           </div>
           <div class="form-grupo"><label for="reg-correo">Correo electrónico</label>
             <div class="input-icon"><span>✉️</span><input type="email" id="reg-correo" placeholder="tu@correo.com"
-                required /></div>
+                autocomplete="email" required /></div>
           </div>
           <div class="form-grupo"><label for="reg-direccion">Dirección de entrega</label>
             <div class="input-icon"><span>📍</span><input type="text" id="reg-direccion"
-                placeholder="Av. Principal, Arequipa" required /></div>
+                placeholder="Av. Principal, Arequipa" autocomplete="street-address" required /></div>
           </div>
           <div class="form-grupo">
             <label for="reg-password">Contraseña</label>
             <div class="input-icon"><span>🔒</span><input type="password" id="reg-password"
-                placeholder="Mínimo 8 caracteres" minlength="8" required /></div>
+                placeholder="Mínimo 8 caracteres" minlength="8" autocomplete="new-password" required /></div>
             <div class="flex gap-1 mt-1">
               <div class="barra" id="barra1"></div>
               <div class="barra" id="barra2"></div>
@@ -69,7 +69,7 @@
           </div>
           <div class="form-grupo"><label for="reg-confirm">Confirmar contraseña</label>
             <div class="input-icon"><span>🔐</span><input type="password" id="reg-confirm"
-                placeholder="Repite tu contraseña" required /></div>
+                placeholder="Repite tu contraseña" autocomplete="new-password" required /></div>
           </div>
 
           <div class="cf-turnstile" data-sitekey="0x4AAAAAADuJRJ9xVNeN6mjm"></div>
@@ -86,7 +86,7 @@
   <script src="../assets/js/app.js"></script>
   <script src="../assets/js/auth.js"></script>
   <script>
-    const campoPassword = document.getElementById('reg-password'); /* nos aseguramos de que solo se ejecute en el lugar exacto donde existen esos elementos del DOM. */
+    const campoPassword = document.getElementById('reg-password');
     campoPassword.addEventListener('input', function () {
       const valor = campoPassword.value;
       let fuerza = 0;

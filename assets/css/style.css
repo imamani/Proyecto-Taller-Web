@@ -357,7 +357,7 @@ h1, h2, h3 {
     url("https://images.unsplash.com/photo-1542838132-92c53300491e?q=80")
       center/cover;
   color: #fff;
-  padding: 5rem 2rem;
+  padding: 5rem 2rem; 
   text-align: center;
 }
 .hero h1 { 
