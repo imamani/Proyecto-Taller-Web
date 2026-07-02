@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (formRegistro) {
         const btnRegistrar = document.getElementById('btn-registrar');
         if (btnRegistrar) {
-            btnRegistrar.addEventListener('click', async (e) => { /* async = asíncrona, lo que permite que el programa siga funcionando sin quedarse 'congelado' */
+            btnRegistrar.addEventListener('click', async (e) => { 
                 e.preventDefault();
                 const nombre = document.getElementById('reg-nombre').value.trim();
                 const telefono = document.getElementById('reg-telefono').value.trim();
@@ -11,13 +11,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 const direccion = document.getElementById('reg-direccion').value.trim();
                 const password = document.getElementById('reg-password').value; 
                 const confirm = document.getElementById('reg-confirm').value;
+
+                const captchaToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+                if (!captchaToken) return mostrarError('Por favor completa la verificación de seguridad.');
+
                 if (!nombre || !telefono || !correo || !direccion) return mostrarError('Por favor completa todos los campos.');
                 if (password !== confirm) return mostrarError('Las contraseñas no coinciden.');
                 if (password.length < 8) return mostrarError('La contraseña debe tener al menos 8 caracteres.');
+                
                 btnRegistrar.textContent = "⏳ Creando cuenta...";
                 btnRegistrar.disabled = true;
                 try {
-                    const { data, error } = await miSupabase.auth.signUp({ email: correo, password: password }); /* await = esperar hasta que Supabase devuelva una respuesta (como los datos de una sesión o el éxito de un registro). */
+                    const { data, error } = await miSupabase.auth.signUp({ 
+                        email: correo, 
+                        password: password,
+                        options: { captchaToken: captchaToken }
+                    }); 
+                    
                     if (error) throw new Error(error.message);
                     if (data.user) {
                         await miSupabase.from('usuarios').insert([{ id: data.user.id, nombre_completo: nombre, correo: correo, telefono: telefono, direccion: direccion }]);
@@ -33,24 +43,40 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+    
     const loginBtn = document.getElementById('login-btn');
     if (loginBtn) {
         loginBtn.addEventListener('click', async (e) => {
             e.preventDefault();
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
+            
+            // --- CAPTURA DEL CAPTCHA PARA EL LOGIN ---
+            const captchaToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+            if (!captchaToken) return mostrarError('Por favor, completa la verificación de seguridad.');
+
             if (!email || !password) return mostrarError('Completa tu correo y contraseña.');
+            
             loginBtn.textContent = "Verificando...";
             loginBtn.disabled = true;
-            const { error } = await miSupabase.auth.signInWithPassword({ email: email, password: password });
-            if (!error) window.location.href = "/index.html";
-            else {
-                mostrarError('Correo o contraseña incorrectos.'); /* Las contraseñas se guardan en auth.users oculto y propio de supabse como seguridad */
+            
+            // --- ENVÍO DEL TOKEN A SUPABASE ---
+            const { error } = await miSupabase.auth.signInWithPassword({ 
+                email: email, 
+                password: password,
+                options: { captchaToken: captchaToken }
+            });
+            
+            if (!error) {
+                window.location.href = "/index.html";
+            } else {
+                mostrarError('Error: ' + error.message); 
                 loginBtn.textContent = "🔑 Iniciar Sesión";
                 loginBtn.disabled = false;
             }
         });
     }
+
     const formRecuperar = document.getElementById('form-recuperar');
     if (formRecuperar) {
         const btnRecuperar = formRecuperar.querySelector('button');
@@ -58,10 +84,19 @@ document.addEventListener("DOMContentLoaded", () => {
             btnRecuperar.addEventListener('click', async (e) => {
                 e.preventDefault();
                 const email = document.getElementById('rec-email').value.trim();
+                
+                const captchaToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+                if (!captchaToken) return mostrarError('Por favor, completa la verificación de seguridad.');
+
                 btnRecuperar.textContent = "Enviando...";
                 btnRecuperar.disabled = true;
                 const urlRedireccion = window.location.href.replace('recuperar.html', 'actualizar_password.html');
-                const { error } = await miSupabase.auth.resetPasswordForEmail(email, { redirectTo: urlRedireccion });
+                
+                const { error } = await miSupabase.auth.resetPasswordForEmail(email, { 
+                    redirectTo: urlRedireccion,
+                    captchaToken: captchaToken
+                });
+                
                 if (error) {
                     mostrarError('Error: ' + error.message);
                     btnRecuperar.textContent = "✉️ Enviar Enlace";
@@ -73,6 +108,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+
     const formActualizar = document.getElementById('form-actualizar');
     if (formActualizar) {
         const btnActualizar = formActualizar.querySelector('button');
@@ -94,6 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
     }
+
     function mostrarError(mensaje) {
         let errEl = document.getElementById('auth-error-msg');
         if (!errEl) {

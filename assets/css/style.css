@@ -130,7 +130,7 @@ h1, h2, h3 {
 .grid { /* index.html, ofertas.html, menu.html "Crea cuadrícula responsiva base" */
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 260px));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 260px)); /* CREA UNA CUADRICULA RESPONSIVA AUTOMATICA SIN NECESIDAD DE "@media queries */
   justify-content: center;
 }
 .layout-sidebar {
@@ -171,7 +171,7 @@ h1, h2, h3 {
   transition: 0.2s;
 }
 .navbar a:hover { 
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--naranja);
 }
 .btn-nav-cta { /* Botón Ingresar en la barra superior */
   background: var(--naranja);

@@ -9,6 +9,7 @@
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body>
@@ -45,6 +46,9 @@
             <div class="input-icon"><span>🔒</span><input type="password" id="password" placeholder="Tu contraseña"
                 required /></div>
           </div>
+
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADuJRJ9xVNeN6mjm"></div>
+
           <button type="button" id="login-btn" class="btn btn-naranja mt-1">🔑 Iniciar Sesión</button>
         </form>
         <div class="text-right mt-1 mb-2 font-bold"><a href="recuperar.html" class="text-verde">¿Olvidaste tu

@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recuperar Contraseña - SalvaComida</title>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link
     href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
     rel="stylesheet">
@@ -25,6 +26,8 @@
             <div class="input-icon"><span>✉️</span><input type="email" id="rec-email" placeholder="tu@correo.com"
                 required /></div>
           </div>
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAADuJRJ9xVNeN6mjm"></div>
+
           <button type="button" class="btn mt-1">✉️ Enviar Enlace</button>
         </form>
         <div class="mt-2 font-bold"><a href="login.html" class="text-verde">← Volver al login</a></div>
