@@ -3,13 +3,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (formRegistro) {
         const btnRegistrar = document.getElementById('btn-registrar');
         if (btnRegistrar) {
-            btnRegistrar.addEventListener('click', async (e) => {
+            btnRegistrar.addEventListener('click', async (e) => { /* async = asíncrona, lo que permite que el programa siga funcionando sin quedarse 'congelado' */
                 e.preventDefault();
                 const nombre = document.getElementById('reg-nombre').value.trim();
                 const telefono = document.getElementById('reg-telefono').value.trim();
                 const correo = document.getElementById('reg-correo').value.trim();
                 const direccion = document.getElementById('reg-direccion').value.trim();
-                const password = document.getElementById('reg-password').value;
+                const password = document.getElementById('reg-password').value; 
                 const confirm = document.getElementById('reg-confirm').value;
                 if (!nombre || !telefono || !correo || !direccion) return mostrarError('Por favor completa todos los campos.');
                 if (password !== confirm) return mostrarError('Las contraseñas no coinciden.');
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnRegistrar.textContent = "⏳ Creando cuenta...";
                 btnRegistrar.disabled = true;
                 try {
-                    const { data, error } = await miSupabase.auth.signUp({ email: correo, password: password });
+                    const { data, error } = await miSupabase.auth.signUp({ email: correo, password: password }); /* await = esperar hasta que Supabase devuelva una respuesta (como los datos de una sesión o el éxito de un registro). */
                     if (error) throw new Error(error.message);
                     if (data.user) {
                         await miSupabase.from('usuarios').insert([{ id: data.user.id, nombre_completo: nombre, correo: correo, telefono: telefono, direccion: direccion }]);

@@ -86,7 +86,7 @@
   <script src="../assets/js/app.js"></script>
   <script src="../assets/js/auth.js"></script>
   <script>
-    const campoPassword = document.getElementById('reg-password');
+    const campoPassword = document.getElementById('reg-password'); /* nos aseguramos de que solo se ejecute en el lugar exacto donde existen esos elementos del DOM. */
     campoPassword.addEventListener('input', function () {
       const valor = campoPassword.value;
       let fuerza = 0;

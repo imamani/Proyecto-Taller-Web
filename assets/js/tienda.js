@@ -94,7 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             });
         });
 
-        metodoEntrega.addEventListener('change', recalculada);
+        metodoEntrega.addEventListener('change', recalculada); /* hace que cada vez que el usuario cambia entre Delivery o Recojo, se dispare automáticamente la función recalculada() */
 
         const platoURL = new URLSearchParams(window.location.search).get('plato');
         if (platoURL && carrito[platoURL] !== undefined && (mapaStock[platoURL] !== undefined ? mapaStock[platoURL] : 999) > 0) {

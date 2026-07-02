@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async () => { /* Espera a que todo
         navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', cerrarMenu));
     }
 
-    const { data: { session } } = await miSupabase.auth.getSession(); /* Pregunta a Supabase si el usuario está logueado. */
+    const { data: { session } } = await miSupabase.auth.getSession(); /* Pregunta a Supabase si el usuario está logueado. (localstorage para la sesion)*/
     if (session) {
         const btnIngresar = document.querySelector('a[href*="login.html"]'); if (btnIngresar) {
             const { data: perfil } = await miSupabase.from('usuarios').select('nombre_completo').eq('id', session.user.id).single();
