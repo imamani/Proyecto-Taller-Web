@@ -2,148 +2,116 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menú Regular - SalvaComida</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas Especiales - SalvaComida</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
-  <nav class="navbar">
-    <a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗 SalvaComida</a>
-    <button id="hamburger-btn" class="hamburger-btn"
-      aria-label="Abrir menú"><span></span><span></span><span></span></button>
-    <ul class="flex" id="nav-menu">
-      <li><a href="../index.html">Inicio</a></li>
-      <li><a href="menu.html">Menú</a></li>
-      <li><a href="ofertas.html">🔥 Ofertas</a></li>
-      <li><a href="login.html" class="btn btn-naranja btn-auto" style="padding:.5rem 1rem">Ingresar</a></li>
-    </ul>
-  </nav>
-  <div id="sidebar-overlay" class="sidebar-overlay"></div>
-  <header class="banner"
-    style="margin:0; border-radius:0; max-width:100%; background:linear-gradient(135deg, var(--verde), var(--verde-claro))">
-    <h1 class="title mb-1">🍽️ Menú Completo</h1>
-    <p>Nuestro catálogo de productos frescos y deliciosos a precio regular.</p>
-  </header>
-  <div class="filtros">
-    <button class="filtro-btn activo" data-filtro="todos">Todos</button>
-    <button class="filtro-btn" data-filtro="menu">🍱 Especialidades</button>
-    <button class="filtro-btn" data-filtro="pasta">🍝 Italiana</button>
-    <button class="filtro-btn" data-filtro="entradas">🧀 Piqueos</button>
-    <button class="filtro-btn" data-filtro="postres">🍰 Postres</button>
-    <button class="filtro-btn" data-filtro="bebidas">🥤 Bebidas</button>
-  </div>
-  <main class="container">
-    <div class="grid menu-grid">
-      <div class="card menu-card" data-categoria="menu">
-        <div class="card-img">🐟</div>
-        <div class="card-body">
-          <h3 class="title">Ceviche Mixto</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 Sabor Peruano</p>
-          <p class="text-gris-oscuro flex-grow">Pescado fresco y mariscos en leche de tigre.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 30.00</div><a
-            href="form_pedido.html?plato=ceviche_mixto" class="btn">🛒 Añadir</a>
+<body class="pagina-ofertas" style="background-image: url('../image/Imagen-Ofertas.jpg'); background-position: center center; background-size: cover; background-repeat: no-repeat; background-attachment: fixed; " >
+    <nav class="barra-nav">
+        <a href="../index.html" class="marca-nav">🥗 SalvaComida</a>
+        <button id="btn-menu" class="btn-hamburguesa" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+        <ul class="lista-nav" id="menu-nav">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="ofertas.html">🔥 Ofertas</a></li>
+            <li><a href="login.html" class="enlace-destacado">Ingresar</a></li>
+        </ul>
+    </nav>
+    <div id="fondo-menu" class="fondo-menu"></div>
+    <header class="cabecera-pagina">
+        <h1 class="titulo-cabecera">🔥 Ofertas Especiales</h1>
+        <p>Los mejores descuentos del día de rescate alimentario.</p>
+    </header>
+    <section class="seccion-oferta-dia">
+        <h2 class="titulo-seccion">⭐ Oferta del Día</h2>
+        <div class="tarjeta-oferta-dia">
+            <div class="icono-oferta-dia"><img src="../image/menudeldia.png" alt="menudeldia"></div>
+            <div class="info-oferta-dia">
+                <p class="restaurante-oferta">Sabor Peruano</p>
+                <h3 class="nombre-oferta">Menú del Día Completo</h3>
+                <p class="descripcion-oferta">Sopa, segundo criollo y refresco. El menú más completo y nutritivo de Arequipa.</p>
+                <div class="precios-oferta">
+                    <s class="precio-anterior">S/ 27.00</s>
+                    <span class="precio-actual">S/ 13.00</span>
+                    <span class="etiqueta-descuento">-52%</span>
+                </div>
+                <a href="form_pedido.html?plato=menu_dia" class="boton boton-primario">🛒 Pedir ahora</a>
+            </div>
         </div>
-      </div>
-      <div class="card menu-card" data-categoria="menu">
-        <div class="card-img">🍛</div>
-        <div class="card-body">
-          <h3 class="title">Ají de Gallina</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 Sabor Peruano</p>
-          <p class="text-gris-oscuro flex-grow">Cremoso ají de gallina tradicional.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 18.00</div><a
-            href="form_pedido.html?plato=aji_gallina" class="btn">🛒 Añadir</a>
+    </section>
+    <section class="seccion-todas-ofertas">
+        <h2 class="titulo-seccion">🏷️ Todas las Ofertas</h2>
+        <div class="rejilla-ofertas">
+            <div class="tarjeta-oferta">
+                <div class="etiqueta-descuento-esquina">-43%</div>
+                <div class="icono-oferta"><img src="../image/Tallarin-Saltado.jpg" alt="tallarin_saltado"></div>
+                <div class="info-oferta">
+                    <p class="restaurante-oferta">La Trattoria</p>
+                    <h3 class="nombre-oferta">Lomo Saltado con Pasta</h3>
+                    <div class="precios-oferta"><s>S/ 28.00</s><span class="precio-actual">S/ 16.00</span></div>
+                    <a href="form_pedido.html?plato=lomo_pasta" class="enlace-pedir">Pedir ya →</a>
+                </div>
+            </div>
+            <div class="tarjeta-oferta">
+                <div class="etiqueta-descuento-esquina">-45%</div>
+                <div class="icono-oferta"><img src="../image/EnsaladaCesar.webp" alt="ensalada_cesar"></div>
+                <div class="info-oferta">
+                    <p class="restaurante-oferta">Verde Vivo</p>
+                    <h3 class="nombre-oferta">Ensalada César Especial</h3>
+                    <div class="precios-oferta"><s>S/ 22.00</s><span class="precio-actual">S/ 12.00</span></div>
+                    <a href="form_pedido.html?plato=ensalada_cesar" class="enlace-pedir">Pedir ya →</a>
+                </div>
+            </div>
+            <div class="tarjeta-oferta">
+                <div class="etiqueta-descuento-esquina">-43%</div>
+                <div class="icono-oferta"><img src="../image/Pollo-a-la-brasa.webp" alt="pollo_brasa"></div>
+                <div class="info-oferta">
+                    <p class="restaurante-oferta">Sabor Peruano</p>
+                    <h3 class="nombre-oferta">Pollo a la Brasa</h3>
+                    <div class="precios-oferta"><s>S/ 35.00</s><span class="precio-actual">S/ 20.00</span></div>
+                    <a href="form_pedido.html?plato=pollo_brasa" class="enlace-pedir">Pedir ya →</a>
+                </div>
+            </div>
+            <div class="tarjeta-oferta">
+                <div class="etiqueta-descuento-esquina">-50%</div>
+                <div class="icono-oferta"><img src="../image/tiramisu.jpg" alt="tiramisu"></div>
+                <div class="info-oferta">
+                    <p class="restaurante-oferta">La Trattoria</p>
+                    <h3 class="nombre-oferta">Tiramisú Artesanal</h3>
+                    <div class="precios-oferta"><s>S/ 18.00</s><span class="precio-actual">S/ 9.00</span></div>
+                    <a href="form_pedido.html?plato=tiramisu" class="enlace-pedir">Pedir ya →</a>
+                </div>
+            </div>
+            <div class="tarjeta-oferta">
+                <div class="etiqueta-descuento-esquina">-50%</div>
+                <div class="icono-oferta"><img src="../image/smoothieverde.jpg" alt=""></div>
+                <div class="info-oferta">
+                    <p class="restaurante-oferta">Verde Vivo</p>
+                    <h3 class="nombre-oferta">Smoothie Verde Detox</h3>
+                    <div class="precios-oferta"><s>S/ 14.00</s><span class="precio-actual">S/ 7.00</span></div>
+                    <a href="form_pedido.html?plato=smoothie" class="enlace-pedir">Pedir ya →</a>
+                </div>
+            </div>
+            <div class="tarjeta-oferta">
+                <div class="etiqueta-descuento-esquina">-31%</div>
+                <div class="icono-oferta"><img src="../image/tallarinesverde.jpg" alt=""></div>
+                <div class="info-oferta">
+                    <p class="restaurante-oferta">Sabor Peruano</p>
+                    <h3 class="nombre-oferta">Tallarines Verdes</h3>
+                    <div class="precios-oferta"><s>S/ 26.00</s><span class="precio-actual">S/ 18.00</span></div>
+                    <a href="form_pedido.html?plato=tallarines_verdes" class="enlace-pedir">Pedir ya →</a>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="card menu-card" data-categoria="menu">
-        <div class="card-img">🍚</div>
-        <div class="card-body">
-          <h3 class="title">Arroz Chaufa</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 Sabor Peruano</p>
-          <p class="text-gris-oscuro flex-grow">Arroz chaufa salteado al wok.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 20.00</div><a
-            href="form_pedido.html?plato=arroz_chaufa" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-      <div class="card menu-card" data-categoria="entradas">
-        <div class="card-img">🥔</div>
-        <div class="card-body">
-          <h3 class="title">Causa Limeña</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 Sabor Peruano</p>
-          <p class="text-gris-oscuro flex-grow">Causa rellena de pollo con palta.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 12.00</div><a
-            href="form_pedido.html?plato=causa_limena" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-      <div class="card menu-card" data-categoria="entradas">
-        <div class="card-img">🧀</div>
-        <div class="card-body">
-          <h3 class="title">Tequeños</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 El Buen Sabor</p>
-          <p class="text-gris-oscuro flex-grow">Crujientes tequeños rellenos de queso.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 10.00</div><a
-            href="form_pedido.html?plato=tequenos" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-      <div class="card menu-card" data-categoria="bebidas">
-        <div class="card-img">🍹</div>
-        <div class="card-body">
-          <h3 class="title">Jugo Maracuyá</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 Verde Vivo</p>
-          <p class="text-gris-oscuro flex-grow">Jugo de maracuyá 100% natural.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 7.00</div><a
-            href="form_pedido.html?plato=jugo_maracuya" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-      <div class="card menu-card" data-categoria="pasta">
-        <div class="card-img">🍕</div>
-        <div class="card-body">
-          <h3 class="title">Pizza Hawaiana</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 La Trattoria</p>
-          <p class="text-gris-oscuro flex-grow">Masa artesanal con jamón y piña.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 25.00</div><a
-            href="form_pedido.html?plato=pizza_hawaiana" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-      <div class="card menu-card" data-categoria="pasta">
-        <div class="card-img">🍝</div>
-        <div class="card-body">
-          <h3 class="title">Lasagna Carne</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 La Trattoria</p>
-          <p class="text-gris-oscuro flex-grow">Capas de pasta con salsa boloñesa.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 22.00</div><a
-            href="form_pedido.html?plato=lasagna_carne" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-      <div class="card menu-card" data-categoria="postres">
-        <div class="card-img">🍩</div>
-        <div class="card-body">
-          <h3 class="title">Picarones</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 Sabor Peruano</p>
-          <p class="text-gris-oscuro flex-grow">Porción bañada en miel de chancaca.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 10.00</div><a
-            href="form_pedido.html?plato=picarones" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-      <div class="card menu-card" data-categoria="postres">
-        <div class="card-img">🍨</div>
-        <div class="card-body">
-          <h3 class="title">Helado Artesanal</h3>
-          <p class="font-bold text-verde mb-1" style="font-size:.8rem">📍 La Trattoria</p>
-          <p class="text-gris-oscuro flex-grow">Dos bolas de helado artesanal.</p>
-          <div class="font-bold border-top pt-1 mb-1 mt-1" style="font-size:1.5rem">S/ 8.00</div><a
-            href="form_pedido.html?plato=helado_artesanal" class="btn">🛒 Añadir</a>
-        </div>
-      </div>
-    </div>
-  </main>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../assets/js/app.js"></script>
-  <script src="../assets/js/tienda.js"></script>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/tienda.js"></script>
 </body>
 
 </html>

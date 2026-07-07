@@ -1,71 +1,103 @@
-const miSupabase = supabase.createClient( /* CONEXION PRINCIPAL CON LA BASE DE DATOS (SUPABASE)*/
+/* CONEXIÓN PRINCIPAL CON LA BASE DE DATOS (SUPABASE) */
+const miSupabase = supabase.createClient(
     'https://xuuajupcjxmpglatxmqf.supabase.co',
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh1dWFqdXBjanhtcGdsYXR4bXFmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk1NTkxMjUsImV4cCI6MjA5NTEzNTEyNX0.PSR8OjJxJXD4a6GPiJPl946MsGR2PifJCMNJta9dvXc'
 );
-document.addEventListener("DOMContentLoaded", async () => { /* Espera a que todo el código HTML de la página termine de cargar antes de ejecutar el JavaScript. */
-    // CERRAR SESIÓN (botón de la sidebar "Mi Cuenta" en perfil.html y pedidos.html)
-    const btnLogout = document.getElementById('btn-logout');
-    if (btnLogout) {
-        btnLogout.addEventListener('click', async (e) => {
-            e.preventDefault();
-            await miSupabase.auth.signOut();
-            window.location.href = "/index.html";
-        });
-    }
 
-    // MENÚ HAMBURGUESA PARA MÓVIL
-    const hamburgerBtn = document.getElementById('hamburger-btn');
-    const navMenu = document.getElementById('nav-menu');
-    const overlay = document.getElementById('sidebar-overlay');
-    if (hamburgerBtn && navMenu && overlay) {
-        const cerrarMenu = () => {
-            navMenu.classList.remove('mostrar');
-            overlay.classList.remove('mostrar');
-        };
-        hamburgerBtn.addEventListener('click', () => {
-            navMenu.classList.toggle('mostrar');
-            overlay.classList.toggle('mostrar');
-        });
-        overlay.addEventListener('click', cerrarMenu);
-        navMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', cerrarMenu));
-    }
+/* INTERACCIÓN Y LOGUEO DE LA PÁGINA (AL CARGAR EL DOCUMENTO) */
+document.addEventListener("DOMContentLoaded", async () => {
 
-    const { data: { session } } = await miSupabase.auth.getSession(); /* Pregunta a Supabase si el usuario está logueado. (localstorage para la sesion)*/
-    if (session) {
-        const btnIngresar = document.querySelector('a[href*="login.html"]'); if (btnIngresar) {
-            const { data: perfil } = await miSupabase.from('usuarios').select('nombre_completo').eq('id', session.user.id).single();
-            if (perfil) {
-                const primerNombre = perfil.nombre_completo.split(' ')[0];
-                const liPadre = btnIngresar.parentElement;
-                liPadre.innerHTML = `
-                    <div style="position: relative; display: inline-block;">
-                        <a href="#" id="usuario-perfil-btn" class="btn btn-naranja btn-auto" style="padding:.5rem 1rem">👤 Hola, ${primerNombre}</a>
-                        <div id="perfil-dropdown" class="dropdown-menu">
-                            <a href="/pages/perfil.html">⚙️ Mis Datos</a>
-                            <a href="/pages/pedidos.html">📦 Mis Pedidos</a>
-                            <a href="#" id="btn-cerrar-sesion" class="text-rojo">Anular Sesión 🚪</a>
+    // 1. Obtener el usuario autenticado actual
+    const { data: { user } } = await miSupabase.auth.getUser();
+
+    if (user) {
+        // Buscar al usuario en tu tabla pública 'usuarios' usando su ID único
+        const { data: usuarioBase } = await miSupabase
+            .from('usuarios')
+            .select('nombre_completo, telefono, direccion')
+            .eq('id', user.id)
+            .single();
+
+        // Si lo encuentra en tu base de datos, usamos esos datos; si no, el correo cortado
+        const nombre = usuarioBase?.nombre_completo || user.email.split('@')[0];
+        const telefono = usuarioBase?.telefono || "";
+        const direccion = usuarioBase?.direccion || "";
+
+        /* CUANDO INGRESAMOS CAMBIA DE INGRESAR A HOLA, "USUARIO" */
+        const boton = document.querySelector(".enlace-destacado");
+        if (boton) {
+            const esIndex = window.location.pathname.includes("index.html") || window.location.pathname === "/";
+            boton.href = esIndex ? "pages/perfil.html" : "perfil.html";
+            boton.innerHTML = `👤 Hola, ${nombre}`;
+        }
+
+        /* RELLENA LOS IMPUTS DE AUTOMATICAMENTE PERFIL.HTML */
+        const formPerfil = document.getElementById("form-perfil");
+        if (formPerfil) {
+            document.getElementById("perf-nombre").value = nombre;
+            document.getElementById("perf-telefono").value = telefono;
+            document.getElementById("perf-direccion").value = direccion;
+        }
+
+        /* RELLENA EL APARTADO DEL FORMULARIO_PEDIDO (form_pedido.html) */
+        const formPedido = document.getElementById("form-pedido");
+        if (formPedido) {
+            document.getElementById("pedido-nombre").value = nombre;
+            document.getElementById("pedido-telefono").value = telefono;
+            document.getElementById("pedido-direccion").value = direccion;
+        }
+
+        /* CARGAR LISTA DE PEDIDOS EN pedidos.html */
+        const contenedorPedidos = document.getElementById("lista-pedidos");
+        if (contenedorPedidos) {
+            const { data: pedidos, error } = await miSupabase
+                .from('pedidos')
+                .select('*')
+                .eq('usuario_id', user.id)
+                .order('fecha_pedido', { ascending: false });
+
+            if (error || !pedidos || pedidos.length === 0) {
+                contenedorPedidos.innerHTML = `<p class="carrito-vacio">Aún no has realizado ningún pedido de rescate.</p>`;
+            } else {
+                contenedorPedidos.innerHTML = pedidos.map(pedido => {
+                    const fechaFormateada = new Date(pedido.fecha_pedido).toLocaleDateString();
+
+                    return `
+                    <div style="background: #fff; padding: 15px; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); border-left: 4px solid #2f8f5b;">
+                        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 6px;">
+                            <span>📦 Pedido #${pedido.id.slice(0, 8)}</span>
+                            <span style="color: #2f8f5b;">S/ ${parseFloat(pedido.total_final).toFixed(2)}</span>
+                        </div>
+                        <div style="font-size: 13px; color: #666;">
+                            <p><strong>Modalidad:</strong> ${pedido.modalidad}</p>
+                            <p><strong>Pago:</strong> ${pedido.metodo_pago}</p>
+                            <p><strong>Estado:</strong> <span style="background: #fef3c7; color: #d97706; padding: 2px 6px; border-radius: 4px; font-weight: bold;">${pedido.estado}</span></p>
+                            <p><strong>Fecha:</strong> ${fechaFormateada}</p>
                         </div>
                     </div>
-                `;
-                const btnDropdown = document.getElementById('usuario-perfil-btn');
-                const dropdown = document.getElementById('perfil-dropdown');
-                if (btnDropdown && dropdown) {
-                    btnDropdown.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        dropdown.classList.toggle("mostrar");
-                    });
-                }
-                document.addEventListener('click', async (e) => { /* detecta si haces clic fuera de ese menú y cerrarlo automáticamente. */
-                    if (e.target.id === 'btn-cerrar-sesion') {
-                        e.preventDefault();
-                        await miSupabase.auth.signOut();
-                        window.location.href = "/index.html";
-                    }
-                    if (btnDropdown && !btnDropdown.contains(e.target) && dropdown && !dropdown.contains(e.target)) {
-                        dropdown.classList.remove("mostrar");
-                    }
-                });
+                `}).join('');
             }
         }
     }
+
+    /* FUNCIONALIDAD DE CERRAR SESIÓN EN PERFIL.HTML */
+    const btnCerrarSesion = document.getElementById("btn-cerrar-sesion");
+    if (btnCerrarSesion) {
+        btnCerrarSesion.addEventListener("click", async () => {
+            await miSupabase.auth.signOut();
+            const esIndex = window.location.pathname.includes("index.html") || window.location.pathname === "/";
+            window.location.href = esIndex ? "index.html" : "../index.html";
+        });
+    }
 });
+
+/* MENÚ HAMBURGUESA */
+
+const botonMenu = document.getElementById('btn-menu');
+const listaMenu = document.getElementById('menu-nav');
+
+if (botonMenu && listaMenu) {
+    botonMenu.addEventListener('click', function () {
+        listaMenu.classList.toggle('mostrar');
+    });
+}

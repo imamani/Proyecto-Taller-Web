@@ -11,28 +11,23 @@
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
-    <nav class="navbar"><a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗
-            SalvaComida</a></nav>
-    <div class="container layout-sidebar">
-        <div class="card text-center flex flex-col justify-center h-100" style="height:fit-content">
-            <div class="flex justify-center mb-1">
-                <div class="flex items-center justify-center font-bold title"
-                    style="width:80px;height:80px;background:var(--verde-claro);border-radius:50%;font-size:2rem;color:#fff">
-                    👤</div>
+<body class="pagina-pedidos">
+    <nav class="barra-nav"><a href="../index.html" class="marca-nav">🥗 SalvaComida</a></nav>
+    <div class="contenedor-cuenta">
+        <div class="barra-lateral">
+            <div class="avatar-contenedor">
+                <div class="avatar">👤</div>
             </div>
-            <h3 class="title mb-2">Mi Cuenta</h3>
-            <div class="flex flex-col text-left gap-1 border-top pt-1">
-                <a href="perfil.html" class="font-bold p-1">⚙️ Mis Datos</a>
-                <a href="pedidos.html" class="font-bold text-verde p-1"
-                    style="background:var(--gris); border-radius:8px">📦 Mis Pedidos</a>
-                <button id="btn-logout" class="btn btn-outline text-rojo mt-1" style="border:none">🚪 Cerrar
-                    Sesión</button>
+            <h3 class="titulo-lateral">Mi Cuenta</h3>
+            <div class="menu-lateral">
+                <a href="perfil.html" class="enlace-lateral">⚙️ Mis Datos</a>
+                <a href="pedidos.html" class="enlace-lateral enlace-activo">📦 Mis Pedidos</a>
+                <button id="btn-cerrar-sesion" class="enlace-lateral boton-cerrar-sesion">🚪 Cerrar Sesión</button>
             </div>
         </div>
-        <div class="card">
-            <h2 class="title mb-2 border-bottom pb-1">Mis Pedidos</h2>
-            <div id="contenedor-historial"></div>
+        <div class="contenido-cuenta">
+            <h2 class="titulo-contenido">Mis Pedidos</h2>
+            <div id="lista-pedidos"></div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>

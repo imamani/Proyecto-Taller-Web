@@ -2,108 +2,105 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro - SalvaComida</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - SalvaComida</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
-  <nav class="navbar">
-    <a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗 SalvaComida</a>
-    <ul class="flex">
-      <li><a href="login.html">Iniciar sesión</a></li>
-    </ul>
-  </nav>
-  <div class="auth-page">
-    <div class="auth-bg">
-      <div style="font-size:5rem" class="mb-1">🥗</div>
-      <h2 class="title mb-1" style="font-size:2rem">Rescata alimentos, ahorra</h2>
-      <p class="mb-2">Únete a miles de personas que ya están reduciendo el desperdicio en Arequipa.</p>
-      <div class="flex flex-col gap-1 w-100 text-left font-bold" style="max-width:300px">
-        <div class="card p-1" style="background:rgba(255,255,255,.9); color:#333; border:none">💸 70% de descuento</div>
-        <div class="card p-1" style="background:rgba(255,255,255,.9); color:#333; border:none">🚀 Pedidos listos en
-          minutos</div>
-        <div class="card p-1" style="background:rgba(255,255,255,.9); color:#333; border:none">🌍 Contribuye al planeta
+<body class="pagina-registrar">
+    <nav class="barra-nav">
+        <a href="../index.html" class="marca-nav">🥗 SalvaComida</a>
+        <ul class="lista-nav-simple">
+            <li><a href="login.html">Iniciar sesión</a></li>
+        </ul>
+    </nav>
+    <div class="contenedor-auth">
+        <div class="panel-info">
+            <div class="icono-grande">🥗</div>
+            <h2 class="titulo-auth">Rescata alimentos, ahorra</h2>
+            <p class="descripcion-auth">Únete a miles de personas que ya están reduciendo el desperdicio en Arequipa.</p>
+            <div class="lista-beneficios">
+                <div class="beneficio-item">💸 70% de descuento</div>
+                <div class="beneficio-item">🚀 Pedidos listo en minutos</div>
+                <div class="beneficio-item">🌍 Contribuye al planeta</div>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="auth-form" style="overflow-y:auto; padding:2rem 1rem">
-      <div class="auth-box">
-        <h2 class="title text-center">Crear cuenta</h2>
-        <p class="text-center text-gris-oscuro mb-2">Es gratis y solo toma un momento</p>
-        <form id="form-registro" autocomplete="on">
-          <p class="font-bold text-verde mt-1 mb-1 border-bottom" style="font-size:.8rem; text-transform:uppercase">
-            Datos personales</p>
-          <div class="fila-doble">
-            <div class="form-grupo"><label for="reg-nombre">Nombre completo</label>
-              <div class="input-icon"><span>👤</span><input type="text" id="reg-nombre" placeholder="Ej. Ana López"
-                  autocomplete="name" required /></div>
-            </div>
-            <div class="form-grupo"><label for="reg-telefono">Teléfono</label>
-              <div class="input-icon"><span>📱</span><input type="tel" id="reg-telefono" placeholder="987654321"
-                  autocomplete="tel" required /></div>
-            </div>
-          </div>
-          <div class="form-grupo"><label for="reg-correo">Correo electrónico</label>
-            <div class="input-icon"><span>✉️</span><input type="email" id="reg-correo" placeholder="tu@correo.com"
-                autocomplete="email" required /></div>
-          </div>
-          <div class="form-grupo"><label for="reg-direccion">Dirección de entrega</label>
-            <div class="input-icon"><span>📍</span><input type="text" id="reg-direccion"
-                placeholder="Av. Principal, Arequipa" autocomplete="street-address" required /></div>
-          </div>
-          <div class="form-grupo">
-            <label for="reg-password">Contraseña</label>
-            <div class="input-icon"><span>🔒</span><input type="password" id="reg-password"
-                placeholder="Mínimo 8 caracteres" minlength="8" autocomplete="new-password" required /></div>
-            <div class="flex gap-1 mt-1">
-              <div class="barra" id="barra1"></div>
-              <div class="barra" id="barra2"></div>
-              <div class="barra" id="barra3"></div>
-            </div>
-          </div>
-          <div class="form-grupo"><label for="reg-confirm">Confirmar contraseña</label>
-            <div class="input-icon"><span>🔐</span><input type="password" id="reg-confirm"
-                placeholder="Repite tu contraseña" autocomplete="new-password" required /></div>
-          </div>
+        <div class="panel-formulario">
+            <div class="tarjeta-formulario">
+                <h2 class="titulo-formulario">Crear cuenta</h2>
+                <p class="descripcion-formulario">Es gratis y solo toma un momento</p>
+                <form id="form-registrar" autocomplete="on">
+                    <p class="subtitulo-formulario">Datos personales</p>
+                    <div class="fila-campos">
+                        <div class="campo-grupo"><label for="reg-nombre">Nombre completo</label>
+                            <div class="input-icono"><span>👤</span><input type="text" id="reg-nombre"
+                                    placeholder="Ej. Ana López" autocomplete="name" required /></div>
+                        </div>
+                        <div class="campo-grupo"><label for="reg-telefono">Teléfono</label>
+                            <div class="input-icono"><span>📱</span><input type="tel" id="reg-telefono"
+                                    placeholder="987654321" autocomplete="tel" required /></div>
+                        </div>
+                    </div>
+                    <div class="campo-grupo"><label for="reg-correo">Correo electrónico</label>
+                        <div class="input-icono"><span>✉️</span><input type="email" id="reg-correo"
+                                placeholder="tu@correo.com" autocomplete="email" required /></div>
+                    </div>
+                    <div class="campo-grupo"><label for="reg-direccion">Dirección de entrega</label>
+                        <div class="input-icono"><span>📍</span><input type="text" id="reg-direccion"
+                                placeholder="Av. Principal, Arequipa" autocomplete="street-address" required /></div>
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="reg-password-ref">Contraseña</label>
+                        <div class="input-icono"><span>🔒</span><input type="password" id="reg-password-ref"
+                                placeholder="Mínimo 8 caracteres" minlength="8" autocomplete="new-password" required />
+                        </div>
+                        <div class="barra-fuerza-contenedor">
+                            <div class="barra-ref"></div>
+                            <div class="barra-ref"></div>
+                            <div class="barra-ref"></div>
+                        </div>
+                    </div>
+                    <div class="campo-grupo"><label for="reg-confirm">Confirmar contraseña</label>
+                        <div class="input-icono"><span>🔐</span><input type="password" id="reg-confirm"
+                                placeholder="Repite tu contraseña" autocomplete="new-password" required /></div>
+                    </div>
 
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAADuJRJ9xVNeN6mjm"></div>
 
-          <button type="button" id="btn-registrar" class="btn mt-1">✅ Crear mi cuenta gratis</button>
-        </form>
-        <div class="text-center mt-2 font-bold"><a href="login.html" class="text-verde">¿Ya tienes cuenta? Inicia
-            sesión</a></div>
-      </div>
+                    <button type="submit" id="btn-login" class="boton boton-primario boton-ancho">✅ Crear mi cuenta gratis</button>
+                </form>
+                <div class="enlace-recuperar"><a href="login.html" class="enlace-simple">¿Ya tienes cuenta? Inicia sesión</a></div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="toast font-bold" id="toast-registro">✅ ¡Cuenta creada! Redirigiendo...</div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../assets/js/app.js"></script>
-  <script src="../assets/js/auth.js"></script>
-  <script>
-    const campoPassword = document.getElementById('reg-password');
-    campoPassword.addEventListener('input', function () {
-      const valor = campoPassword.value;
-      let fuerza = 0;
-      if (valor.length >= 8) fuerza++;
-      if (valor.length >= 10) fuerza++;
-      if (/[A-Z]/.test(valor) && /[0-9]/.test(valor)) fuerza++;
-      ['barra1', 'barra2', 'barra3'].forEach(function (id, indice) {
-        const barra = document.getElementById(id);
-        barra.className = 'barra';
-        if (indice < fuerza) {
-          if (fuerza === 1) barra.classList.add('debil');
-          else if (fuerza === 2) barra.classList.add('medio');
-          else barra.classList.add('fuerte');
-        }
-      });
-    });
-  </script>
+    <div id="aviso-cuenta-creada" class="aviso-flotante">✅ ¡Cuenta creada! Redirigiendo...</div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        const campoPassword = document.getElementById('reg-password-ref');
+        const barras = document.querySelectorAll('.barra-ref');
+
+        campoPassword.addEventListener('input', function () {
+            const valor = campoPassword.value;
+            let fuerza = 0;
+            if (valor.length >= 8) fuerza++;
+            if (valor.length >= 10) fuerza++;
+            if (/[A-Z]/.test(valor) && /[0-9]/.test(valor)) fuerza++;
+
+            barras.forEach(function (barra, indice) {
+                barra.className = 'barra-ref';
+                if (indice < fuerza) {
+                    if (fuerza === 1) barra.classList.add('debil');
+                    else if (fuerza === 2) barra.classList.add('medio');
+                    else barra.classList.add('fuerte');
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

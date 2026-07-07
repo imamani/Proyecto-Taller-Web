@@ -2,65 +2,60 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ingresar - SalvaComida</title>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar - SalvaComida</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
-<body>
-  <nav class="navbar">
-    <a href="../index.html" class="title font-bold text-blanco" style="font-size:1.5rem">🥗 SalvaComida</a>
-    <ul class="flex">
-      <li><a href="../index.html">Inicio</a></li>
-    </ul>
-  </nav>
-  <div class="auth-page">
-    <div class="auth-bg">
-      <div style="font-size:5rem" class="mb-1">🌿</div>
-      <h2 class="title mb-1" style="font-size:2rem">Bienvenido de nuevo</h2>
-      <p class="mb-2">Tu almuerzo rescatado te está esperando.</p>
-      <div class="grid" style="gap:1rem">
-        <div class="card text-center p-1" style="color:#333; background:rgba(255,255,255,.9)"><span
-            class="title font-bold" style="font-size:1.5rem; display:block">+2k</span>Usuarios</div>
-        <div class="card text-center p-1" style="color:#333; background:rgba(255,255,255,.9)"><span
-            class="title font-bold" style="font-size:1.5rem; display:block">70%</span>Ahorro</div>
-      </div>
-    </div>
-    <div class="auth-form">
-      <div class="auth-box">
-        <h2 class="title text-center">¡Hola de nuevo!</h2>
-        <p class="text-center text-gris-oscuro mb-2">Ingresa para rescatar tu almuerzo</p>
-        <form id="form-login" autocomplete="on">
-          <div class="form-grupo">
-            <label for="email">Correo electrónico</label>
-            <div class="input-icon"><span>✉️</span><input type="email" id="email" placeholder="tu@correo.com"
-                autocomplete="email" required /></div>
-          </div>
-          <div class="form-grupo">
-            <label for="password">Contraseña</label>
-            <div class="input-icon"><span>🔒</span><input type="password" id="password" placeholder="Tu contraseña"
-                autocomplete="current-password" required /></div>
-          </div>
+<body class="pagina-login">
+    <nav class="barra-nav">
+        <a href="../index.html" class="marca-nav">🥗 SalvaComida</a>
+        <ul class="lista-nav-simple">
+            <li><a href="../index.html">Inicio</a></li>
+        </ul>
+    </nav>
+    <div class="contenedor-auth">
+        <div class="panel-info">
+            <div class="icono-grande">🌿</div>
+            <h2 class="titulo-auth">Bienvenido de nuevo</h2>
+            <p class="descripcion-auth">Tu almuerzo rescatado te está esperando.</p>
+            <div class="beneficios-mini">
+                <div class="beneficio-mini"><span class="numero-mini">+2k</span>Usuarios</div>
+                <div class="beneficio-mini"><span class="numero-mini">70%</span>Ahorro</div>
+            </div>
+        </div>
+        <div class="panel-formulario">
+            <div class="tarjeta-formulario">
+                <h2 class="titulo-formulario">¡Hola de nuevo!</h2>
+                <p class="descripcion-formulario">Ingresa para rescatar tu almuerzo</p>
+                <form id="form-login" autocomplete="on">
+                    <div class="campo-grupo">
+                        <label for="login-email">Correo electrónico</label>
+                        <div class="input-icono"><span>✉️</span><input type="email" id="login-email"
+                                placeholder="tu@correo.com" autocomplete="email" required /></div>
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="login-password">Contraseña</label>
+                        <div class="input-icono"><span>🔒</span><input type="password" id="login-password"
+                                placeholder="Tu contraseña" autocomplete="current-password" required /></div>
+                    </div>
 
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAADuJRJ9xVNeN6mjm"></div>
 
-          <button type="button" id="login-btn" class="btn btn-naranja mt-1">🔑 Iniciar Sesión</button>
-        </form>
-        <div class="text-right mt-1 mb-2 font-bold"><a href="recuperar.html" class="text-verde">¿Olvidaste tu
-            contraseña?</a></div>
-        <button type="button" class="btn btn-outline" onclick="window.location.href='registrar.html'">📝 Crear cuenta
-          gratis</button>
-      </div>
+                    <button type="submit" id="btn-login" class="boton boton-primario boton-ancho">🔑 Iniciar Sesión</button>
+                </form>
+                <div class="enlace-recuperar"><a href="recuperar.html" class="enlace-simple">¿Olvidaste tu contraseña?</a></div>
+                <button type="button" class="boton boton-secundario boton-ancho" onclick="window.location.href='registrar.html'">📝 Crear cuenta gratis</button>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="../assets/js/app.js"></script>
-  <script src="../assets/js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/auth.js"></script>
 </body>
 
 </html>
