@@ -2,214 +2,216 @@
 <html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulario de Pedido - SalvaComida</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Pedido - SalvaComida</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
 <body class="pagina-form-pedido">
-    <nav class="barra-nav">
-        <a href="../index.html" class="marca-nav">🥗 SalvaComida</a>
-        <button id="btn-menu" class="btn-hamburguesa"
-            aria-label="Abrir menú"><span></span><span></span><span></span></button>
-        <ul class="lista-nav" id="menu-nav">
-            <li><a href="../index.html">Inicio</a></li>
-            <li><a href="menu.html">Menú</a></li>
-            <li><a href="ofertas.html">🔥 Ofertas</a></li>
-            <li><a href="login.html" class="enlace-destacado">Ingresar</a></li>
-        </ul>
-    </nav>
-    <div id="fondo-menu" class="fondo-menu"></div>
-    <header class="cabecera-pagina">
-        <h1 class="titulo-cabecera">🛒 Formulario de Pedido</h1>
-        <p>Completa tu pedido de rescate alimentario</p>
-    </header>
-    <form class="contenedor-pedido" id="form-pedido">
-        <div class="columna-datos">
-            <h2 class="titulo-bloque">📋 Datos del cliente</h2>
-            <div class="fila-campos">
-                <div class="campo-grupo"><label>Nombre del cliente</label><input type="text" id="pedido-nombre"
-                        readonly />
-                </div>
-                <div class="campo-grupo"><label>Teléfono</label><input type="tel" id="pedido-telefono" required /></div>
-            </div>
-            <div class="fila-campos">
-                <div class="campo-grupo"><label>Dirección de entrega</label><input type="text" id="pedido-direccion" required />
-                </div>
-                <div class="campo-grupo"><label>Método</label>
-                    <select id="pedido-metodo-entrega">
-                        <option value="delivery">🚗 Delivery (+ S/ 3.00)</option>
-                        <option value="recojo">🏃 Recojo (Gratis)</option>
-                    </select>
-                </div>
+  <nav class="barra-nav">
+    <a href="../index.html" class="marca-nav">🥗 SalvaComida</a>
+    <button id="btn-menu" class="btn-hamburguesa"
+      aria-label="Abrir menú"><span></span><span></span><span></span></button>
+    <ul class="lista-nav" id="menu-nav">
+      <li><a href="../index.html">Inicio</a></li>
+      <li><a href="menu.html">Menú</a></li>
+      <li><a href="ofertas.html">🔥 Ofertas</a></li>
+      <li><a href="login.html" class="enlace-destacado">Ingresar</a></li>
+    </ul>
+  </nav>
+  <div id="fondo-menu" class="fondo-menu"></div>
+  <header class="cabecera-pagina">
+    <h1 class="titulo-cabecera">🛒 Formulario de Pedido</h1>
+    <p>Completa tu pedido de rescate alimentario</p>
+  </header>
+  <form class="contenedor-pedido" id="form-pedido">
+    <div class="columna-datos">
+      <h2 class="titulo-bloque">📋 Datos del cliente</h2>
+      <div class="fila-campos">
+        <div class="campo-grupo"><label>Nombre del cliente</label><input type="text" id="pedido-nombre" readonly />
+        </div>
+        <div class="campo-grupo"><label>Teléfono</label><input type="tel" id="pedido-telefono" required /></div>
+      </div>
+      <div class="fila-campos">
+        <div class="campo-grupo"><label>Dirección de entrega</label><input type="text" id="pedido-direccion" required />
+        </div>
+        <div class="campo-grupo"><label>Método</label>
+          <select id="pedido-metodo-entrega">
+            <option value="delivery">🚗 Delivery (+ S/ 3.00)</option>
+            <option value="recojo">🏃 Recojo (Gratis)</option>
+          </select>
+        </div>
+      </div>
+      <div class="campo-grupo">
+        <label class="etiqueta-platos">¿Qué platos deseas rescatar hoy?</label>
+        <div class="lista-platos-pedido">
+          <div class="fila-plato" data-id="lomo_pasta">
+            <img src="../image/Tallarin-Saltado.jpg" class="imagen-fila-plato" alt="Lomo Saltado">
+            <span class="nombre-fila-plato">Lomo Saltado</span><span class="precio-fila-plato">S/ 16.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="ensalada_cesar">
+            <img src="../image/EnsaladaCesar.webp" class="imagen-fila-plato" alt="Ensalada César">
+            <span class="nombre-fila-plato">Ensalada César</span><span class="precio-fila-plato">S/ 12.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="pollo_brasa">
+            <img src="../image/Pollo-a-la-brasa.webp" class="imagen-fila-plato" alt="Pollo a la Brasa">
+            <span class="nombre-fila-plato">Pollo a la Brasa</span><span class="precio-fila-plato">S/ 20.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="menu_dia">
+            <img src="../image/menudeldia.png" class="imagen-fila-plato" alt="Menú del Día">
+            <span class="nombre-fila-plato">Menú del Día</span><span class="precio-fila-plato">S/ 13.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="tiramisu">
+            <img src="../image/tiramisu.jpg" class="imagen-fila-plato" alt="Tiramisú">
+            <span class="nombre-fila-plato">Tiramisú</span><span class="precio-fila-plato">S/ 9.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="smoothie">
+            <img src="../image/smoothieverde.jpg" class="imagen-fila-plato" alt="Smoothie Verde">
+            <span class="nombre-fila-plato">Smoothie Verde</span><span class="precio-fila-plato">S/ 7.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="tallarines_verdes">
+            <img src="../image/tallarinesverde.jpg" class="imagen-fila-plato" alt="Tallarines Verdes">
+            <span class="nombre-fila-plato">Tallarines Verdes</span><span class="precio-fila-plato">S/ 18.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="ceviche_mixto">
+            <img src="../image/cevichemixto.jpg" class="imagen-fila-plato" alt="Ceviche Mixto">
+            <span class="nombre-fila-plato">Ceviche Mixto</span><span class="precio-fila-plato">S/ 30.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="aji_gallina">
+            <img src="../image/ajidegallina.jpg" class="imagen-fila-plato" alt="Ají de Gallina">
+            <span class="nombre-fila-plato">Ají de Gallina</span><span class="precio-fila-plato">S/ 18.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="arroz_chaufa">
+            <img src="../image/ArrozChaufa.jpg" class="imagen-fila-plato" alt="Arroz Chaufa">
+            <span class="nombre-fila-plato">Arroz Chaufa</span><span class="precio-fila-plato">S/ 20.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="causa_limena">
+            <img src="../image/CusaLimeña.webp" class="imagen-fila-plato" alt="Causa Limeña">
+            <span class="nombre-fila-plato">Causa Limeña</span><span class="precio-fila-plato">S/ 12.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="tequenos">
+            <img src="../image/tequeños.jpg" class="imagen-fila-plato" alt="Tequeños">
+            <span class="nombre-fila-plato">Tequeños</span><span class="precio-fila-plato">S/ 10.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="jugo_maracuya">
+            <img src="../image/jugomaracuya.webp" class="imagen-fila-plato" alt="Jugo Maracuyá">
+            <span class="nombre-fila-plato">Jugo Maracuyá</span><span class="precio-fila-plato">S/ 7.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="pizza_hawaiana">
+            <img src="../image/pizzahawaiana.jpg" class="imagen-fila-plato" alt="Pizza Hawaiana">
+            <span class="nombre-fila-plato">Pizza Hawaiana</span><span class="precio-fila-plato">S/ 25.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="lasagna_carne">
+            <img src="../image/lasagna.jpg" class="imagen-fila-plato" alt="Lasagna Carne">
+            <span class="nombre-fila-plato">Lasagna Carne</span><span class="precio-fila-plato">S/ 22.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="picarones">
+            <img src="../image/picarones.jpg" class="imagen-fila-plato" alt="Picarones">
+            <span class="nombre-fila-plato">Picarones</span><span class="precio-fila-plato">S/ 10.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+          <div class="fila-plato" data-id="helado_artesanal">
+            <img src="../image/heladoartesanal.jpg" class="imagen-fila-plato" alt="Helado Artesanal">
+            <span class="nombre-fila-plato">Helado Artesanal</span><span class="precio-fila-plato">S/ 8.00</span>
+            <div class="control-cantidad"><button class="btn-restar">-</button><span
+                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="campo-grupo"><label>Notas adicionales</label><textarea id="pedido-notas"
+          placeholder="Instrucciones..."></textarea></div>
+    </div>
+    <div class="columna-resumen">
+      <div class="tarjeta-resumen">
+        <h3 class="titulo-bloque">Resumen</h3>
+        <div id="detalle-carrito" class="detalle-carrito">
+          <p class="carrito-vacio">Carrito vacío.</p>
+        </div>
+        <div class="linea-total"><span>Subtotal</span><span id="pedido-subtotal">S/
+            0.00</span></div>
+        <div class="linea-total"><span id="pedido-etiqueta-delivery">Delivery</span><span id="pedido-costo-delivery">S/
+            3.00</span></div>
+        <div class="linea-total linea-total-final"><span>Total</span><span id="pedido-total" class="monto-total">S/
+            0.00</span></div>
+      </div>
+      <div class="tarjeta-pago">
+        <h3 class="titulo-bloque">💳 Pago</h3>
+        <div class="opciones-pago">
+          <label class="opcion-pago"><input type="radio" name="metodo_pago" value="Yape" checked />
+            <div class="etiqueta-pago">Yape</div>
+          </label>
+          <label class="opcion-pago"><input type="radio" name="metodo_pago" value="Plin" />
+            <div class="etiqueta-pago">Plin</div>
+          </label>
+          <label class="opcion-pago"><input type="radio" name="metodo_pago" value="Tarjeta" />
+            <div class="etiqueta-pago">Tarjeta</div>
+          </label>
+        </div>
+
+        <div id="datos-tarjeta" class="datos-tarjeta">
+          <div class="campo-grupo">
+            <label>Número de Tarjeta</label>
+            <input type="text" id="tarjeta-numero" placeholder="0000 0000 0000 0000" maxlength="19"
+              oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/(\d{4})(?=\d)/g, '$1 ')" />
+          </div>
+          <div class="fila-campos">
+            <div class="campo-grupo">
+              <label>Expira (MM/AA)</label>
+              <input type="text" id="tarjeta-expira" placeholder="MM/AA" maxlength="5"
+                oninput="this.value = this.value.replace(/[^0-9/]/g, '').replace(/^(\d{2})(\d)/g, '$1/$2')" />
             </div>
             <div class="campo-grupo">
-                <label class="etiqueta-platos">¿Qué platos deseas rescatar hoy?</label>
-                <div class="lista-platos-pedido">
-                    <div class="fila-plato" data-id="lomo_pasta"><span
-                            class="icono-fila-plato">🍝</span><span class="nombre-fila-plato">Lomo Saltado</span><span
-                            class="precio-fila-plato">S/ 16.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="ensalada_cesar"><span
-                            class="icono-fila-plato">🥗</span><span class="nombre-fila-plato">Ensalada César</span><span
-                            class="precio-fila-plato">S/ 12.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="pollo_brasa"><span
-                            class="icono-fila-plato">🍗</span><span class="nombre-fila-plato">Pollo a la Brasa</span><span
-                            class="precio-fila-plato">S/ 20.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="menu_dia"><span class="icono-fila-plato">🍱</span><span
-                            class="nombre-fila-plato">Menú del Día</span><span class="precio-fila-plato">S/ 13.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="tiramisu"><span class="icono-fila-plato">🍰</span><span
-                            class="nombre-fila-plato">Tiramisú</span><span class="precio-fila-plato">S/ 9.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="smoothie"><span class="icono-fila-plato">🥤</span><span
-                            class="nombre-fila-plato">Smoothie Verde</span><span class="precio-fila-plato">S/ 7.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="tallarines_verdes"><span
-                            class="icono-fila-plato">🍝</span><span class="nombre-fila-plato">Tallarines Verdes</span><span
-                            class="precio-fila-plato">S/ 18.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="ceviche_mixto"><span
-                            class="icono-fila-plato">🐟</span><span class="nombre-fila-plato">Ceviche Mixto</span><span
-                            class="precio-fila-plato">S/ 30.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="aji_gallina"><span
-                            class="icono-fila-plato">🍛</span><span class="nombre-fila-plato">Ají de Gallina</span><span
-                            class="precio-fila-plato">S/ 18.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="arroz_chaufa"><span
-                            class="icono-fila-plato">🍚</span><span class="nombre-fila-plato">Arroz Chaufa</span><span
-                            class="precio-fila-plato">S/ 20.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="causa_limena"><span
-                            class="icono-fila-plato">🥔</span><span class="nombre-fila-plato">Causa Limeña</span><span
-                            class="precio-fila-plato">S/ 12.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="tequenos"><span class="icono-fila-plato">🧀</span><span
-                            class="nombre-fila-plato">Tequeños</span><span class="precio-fila-plato">S/ 10.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="jugo_maracuya"><span
-                            class="icono-fila-plato">🍹</span><span class="nombre-fila-plato">Jugo Maracuyá</span><span
-                            class="precio-fila-plato">S/ 7.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="pizza_hawaiana"><span
-                            class="icono-fila-plato">🍕</span><span class="nombre-fila-plato">Pizza Hawaiana</span><span
-                            class="precio-fila-plato">S/ 25.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="lasagna_carne"><span
-                            class="icono-fila-plato">🍝</span><span class="nombre-fila-plato">Lasagna Carne</span><span
-                            class="precio-fila-plato">S/ 22.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="picarones"><span
-                            class="icono-fila-plato">🍩</span><span class="nombre-fila-plato">Picarones</span><span
-                            class="precio-fila-plato">S/ 10.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                    <div class="fila-plato" data-id="helado_artesanal"><span
-                            class="icono-fila-plato">🍨</span><span class="nombre-fila-plato">Helado Artesanal</span><span
-                            class="precio-fila-plato">S/ 8.00</span>
-                        <div class="control-cantidad"><button class="btn-restar">-</button><span
-                                class="cantidad-plato">0</span><button class="btn-sumar">+</button></div>
-                    </div>
-                </div>
+              <label>CVV</label>
+              <input type="password" id="tarjeta-cvv" placeholder="***" maxlength="3"
+                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
             </div>
-            <div class="campo-grupo"><label>Notas adicionales</label><textarea id="pedido-notas"
-                    placeholder="Instrucciones..."></textarea></div>
+          </div>
         </div>
-        <div class="columna-resumen">
-            <div class="tarjeta-resumen">
-                <h3 class="titulo-bloque">Resumen</h3>
-                <div id="detalle-carrito" class="detalle-carrito">
-                    <p class="carrito-vacio">Carrito vacío.</p>
-                </div>
-                <div class="linea-total"><span>Subtotal</span><span
-                        id="pedido-subtotal">S/
-                        0.00</span></div>
-                <div class="linea-total"><span
-                        id="pedido-etiqueta-delivery">Delivery</span><span id="pedido-costo-delivery">S/ 3.00</span></div>
-                <div class="linea-total linea-total-final"><span>Total</span><span
-                        id="pedido-total" class="monto-total">S/ 0.00</span></div>
-            </div>
-            <div class="tarjeta-pago">
-                <h3 class="titulo-bloque">💳 Pago</h3>
-                <div class="opciones-pago">
-                    <label class="opcion-pago"><input type="radio" name="metodo_pago" value="Yape" checked />
-                        <div class="etiqueta-pago">Yape</div>
-                    </label>
-                    <label class="opcion-pago"><input type="radio" name="metodo_pago" value="Plin" />
-                        <div class="etiqueta-pago">Plin</div>
-                    </label>
-                    <label class="opcion-pago"><input type="radio" name="metodo_pago" value="Tarjeta" />
-                        <div class="etiqueta-pago">Tarjeta</div>
-                    </label>
-                </div>
 
-                <div id="datos-tarjeta" class="datos-tarjeta">
-                    <div class="campo-grupo">
-                        <label>Número de Tarjeta</label>
-                        <input type="text" id="tarjeta-numero" placeholder="0000 0000 0000 0000" maxlength="19"
-                            oninput="this.value = this.value.replace(/[^0-9 ]/g, '').replace(/(\d{4})(?=\d)/g, '$1 ')" />
-                    </div>
-                    <div class="fila-campos">
-                        <div class="campo-grupo">
-                            <label>Expira (MM/AA)</label>
-                            <input type="text" id="tarjeta-expira" placeholder="MM/AA" maxlength="5"
-                                oninput="this.value = this.value.replace(/[^0-9/]/g, '').replace(/^(\d{2})(\d)/g, '$1/$2')" />
-                        </div>
-                        <div class="campo-grupo">
-                            <label>CVV</label>
-                            <input type="password" id="tarjeta-cvv" placeholder="***" maxlength="3"
-                                oninput="this.value = this.value.replace(/[^0-9]/g, '')" />
-                        </div>
-                    </div>
-                </div>
-
-                <button type="submit" class="boton boton-primario boton-ancho">📦 Confirmar y Pagar</button>
-            </div>
-        </div>
-    </form>
-    <div id="pantalla-pago" class="pantalla-carga">
-        <div class="giro-carga" id="giro-carga"></div>
-        <div id="icono-exito" class="icono-exito">✅</div>
-        <h3 class="texto-carga">Procesando pago seguro...</h3>
+        <button type="submit" class="boton boton-primario boton-ancho">📦 Confirmar y Pagar</button>
+      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../assets/js/app.js"></script>
-    <script src="../assets/js/tienda.js"></script>
+  </form>
+  <div id="pantalla-pago" class="pantalla-carga">
+    <div class="giro-carga" id="giro-carga"></div>
+    <div id="icono-exito" class="icono-exito">✅</div>
+    <h3 class="texto-carga">Procesando pago seguro...</h3>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="../assets/js/app.js"></script>
+  <script src="../assets/js/tienda.js"></script>
 </body>
 
 </html>

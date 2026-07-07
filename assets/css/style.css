@@ -617,8 +617,12 @@ gap: 10px;
 padding: 8px;
 border-bottom: 1px solid #eee;
 }
-.icono-fila-plato {
-font-size: 20px;
+.imagen-fila-plato {
+    width: 45px;
+    height: 45px;
+    border-radius: 8px;
+    object-fit: cover;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
 }
 .nombre-fila-plato {
 flex: 1;
