@@ -734,27 +734,35 @@ animation: bajarInicio 0.8s ease;
 .pagina-menu .tarjeta-plato {
 animation: crecerMenu 0.6s ease;
 } /* crece desde chico */
+
 .pagina-ofertas .tarjeta-oferta-dia {
 animation: entrarDerecha 0.7s ease;
 } /* entra desde la derecha */
+
 .pagina-login .tarjeta-formulario {
 animation: subirLogin 0.6s ease;
 } /* sube desde abajo */
+
 .pagina-registrar .panel-formulario {
 animation: asentarRegistrar 0.6s ease;
 } /* se achica y asienta */
+
 .pagina-recuperar .tarjeta-formulario {
 animation: balanceo 0.6s ease;
 } /* se balancea (rotacion) */
+
 .pagina-actualizar-password .tarjeta-formulario {
 animation: rebote 0.7s ease;
 } /* rebota al aparecer */
+
 .pagina-perfil .contenido-cuenta {
 animation: entrarIzquierda 0.6s ease;
 } /* entra desde la izquierda */
+
 .pagina-pedidos .barra-lateral, .pagina-pedidos .contenido-cuenta {
 animation: aparecer 0.9s ease;
 } /* solo fundido */
+
 .pagina-form-pedido .columna-resumen {
 animation: desplegarResumen 0.6s ease;
 } /* se despliega hacia abajo */
