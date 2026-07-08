@@ -726,10 +726,11 @@ to {
 }
 }
 
-/*   animaciones  */
+/*   animaciones index */
 .pagina-inicio .cabecera-inicio {
 animation: bajarInicio 0.8s ease;
 } /* cae desde arriba */
+
 .pagina-menu .tarjeta-plato {
 animation: crecerMenu 0.6s ease;
 } /* crece desde chico */
