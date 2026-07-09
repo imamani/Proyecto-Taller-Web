@@ -7,19 +7,19 @@ const miSupabase = supabase.createClient(
 /* INTERACCIÓN Y LOGUEO DE LA PÁGINA (AL CARGAR EL DOCUMENTO) */
 document.addEventListener("DOMContentLoaded", async () => {
 
-    // 1. Obtener el usuario autenticado actual
+    /*  Obtener el usuario autenticado actual  */
     const { data: { user } } = await miSupabase.auth.getUser();
 
     if (user) {
-        // Buscar al usuario en tu tabla pública 'usuarios' usando su ID único
+        /*  Buscar al usuario en tu tabla pública 'usuarios' usando su ID único */
         const { data: usuarioBase } = await miSupabase
             .from('usuarios')
             .select('nombre_completo, telefono, direccion')
             .eq('id', user.id)
             .single();
 
-        // Si lo encuentra en tu base de datos, usamos esos datos; si no, el correo cortado
-        const nombre = usuarioBase?.nombre_completo || user.email.split('@')[0];
+        /* Si lo encuentra en tu base de datos */
+        const nombre = usuarioBase?.nombre_completo;
         const telefono = usuarioBase?.telefono || "";
         const direccion = usuarioBase?.direccion || "";
 
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (boton) {
             const esIndex = window.location.pathname.includes("index.html") || window.location.pathname === "/";
             boton.href = esIndex ? "pages/perfil.html" : "perfil.html";
-            boton.innerHTML = `👤 Hola, ${nombre}`;
+            boton.innerHTML = `👋 Hola, ${nombre}`;
         }
 
         /* RELLENA LOS IMPUTS DE AUTOMATICAMENTE PERFIL.HTML */
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                             <p><strong>Fecha:</strong> ${fechaFormateada}</p>
                         </div>
                     </div>
-                `}).join('');
+                `}).join(''); /* termina uniendo todos los elementos */
             }
         }
     }

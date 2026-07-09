@@ -163,7 +163,7 @@ color: #2f8f5b;
 .paso, .tarjeta-plato, .tarjeta-oferta, .tarjeta-formulario, .barra-lateral, .contenido-cuenta, .columna-datos, .tarjeta-resumen, .tarjeta-pago {
 background: #fff;
 border-radius: 10px;
-box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 .paso, .tarjeta-formulario, .barra-lateral, .contenido-cuenta, .columna-datos, .tarjeta-resumen, .tarjeta-pago {
 padding: 20px;
@@ -247,6 +247,10 @@ background: #fff;
 color: #2f8f5b;
 cursor: pointer;
 font-weight: 600;
+}
+.btn-filtro.activo {
+    background-color: #2f8f5b; 
+    color: white;
 }
 .rejilla-platos, .rejilla-ofertas {
 display: grid;

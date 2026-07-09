@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     contador.textContent = cant + 1;
                     calcularTotales();
                 } else {
-                    alert("Lo sentimos, solo quedan ${stockMaximo} unidades disponibles de este plato.");
+                    alert(`Lo sentimos, solo quedan ${stockMaximo} unidades disponibles de este plato.`);
                 }
             });
 
