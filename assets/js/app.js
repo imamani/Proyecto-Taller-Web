@@ -7,42 +7,51 @@ const miSupabase = supabase.createClient(
 /* INTERACCIÓN Y LOGUEO DE LA PÁGINA (AL CARGAR EL DOCUMENTO) */
 document.addEventListener("DOMContentLoaded", async () => {
 
-    /*  Obtener el usuario autenticado actual  */
+    /* Obtener el usuario autenticado actual  */
     const { data: { user } } = await miSupabase.auth.getUser();
 
     if (user) {
-        /*  Buscar al usuario en tu tabla pública 'usuarios' usando su ID único */
+        /* Buscar al usuario en tu tabla pública 'usuarios' usando su ID único */
         const { data: usuarioBase } = await miSupabase
             .from('usuarios')
-            .select('nombre_completo, telefono, direccion')
+            .select('nombre, apellidos, telefono, direccion') /* ACTUALIZADO: Lee nombre y apellidos */
             .eq('id', user.id)
             .single();
 
         /* Si lo encuentra en tu base de datos */
-        const nombre = usuarioBase?.nombre_completo;
+        const nombre = usuarioBase?.nombre || "";
+        const apellidos = usuarioBase?.apellidos || ""; /* NUEVO: Guardamos el apellido */
         const telefono = usuarioBase?.telefono || "";
         const direccion = usuarioBase?.direccion || "";
 
-        /* CUANDO INGRESAMOS CAMBIA DE INGRESAR A HOLA, "USUARIO" */
+        /* CUANDO INGRESAMOS CAMBIA DE INGRESAR A HOLA, "NOMBRE Y APELLIDO" */
         const boton = document.querySelector(".enlace-destacado");
         if (boton) {
             const esIndex = window.location.pathname.includes("index.html") || window.location.pathname === "/";
             boton.href = esIndex ? "pages/perfil.html" : "perfil.html";
-            boton.innerHTML = `👋 Hola, ${nombre}`;
+            boton.innerHTML = `👋 Hola, ${nombre} ${apellidos}`; /* ACTUALIZADO: Junta ambos para saludar */
         }
 
-        /* RELLENA LOS IMPUTS DE AUTOMATICAMENTE PERFIL.HTML */
+        /* RELLENA LOS IMPUTS AUTOMÁTICAMENTE EN PERFIL.HTML */
         const formPerfil = document.getElementById("form-perfil");
         if (formPerfil) {
-            document.getElementById("perf-nombre").value = nombre;
-            document.getElementById("perf-telefono").value = telefono;
-            document.getElementById("perf-direccion").value = direccion;
+            const cajaNombre = document.getElementById("perf-nombre");
+            if (cajaNombre) cajaNombre.value = nombre;
+            
+            const cajaApellido = document.getElementById("perf-apellido"); /* NUEVO: Llena la nueva cajita */
+            if (cajaApellido) cajaApellido.value = apellidos;
+            
+            const cajaTelefono = document.getElementById("perf-telefono");
+            if (cajaTelefono) cajaTelefono.value = telefono;
+            
+            const cajaDireccion = document.getElementById("perf-direccion");
+            if (cajaDireccion) cajaDireccion.value = direccion;
         }
 
         /* RELLENA EL APARTADO DEL FORMULARIO_PEDIDO (form_pedido.html) */
         const formPedido = document.getElementById("form-pedido");
         if (formPedido) {
-            document.getElementById("pedido-nombre").value = nombre;
+            document.getElementById("pedido-nombre").value = `${nombre} ${apellidos}`; /* ACTUALIZADO: Junta ambos en la boleta */
             document.getElementById("pedido-telefono").value = telefono;
             document.getElementById("pedido-direccion").value = direccion;
         }

@@ -4,10 +4,7 @@ font-family: "Lato", Arial, sans-serif;
 background: #ece9e2;
 color: #2b2b2b;
 }
-h1,
-h2,
-h3,
-h4 {
+h1, h2, h3, h4 {
 font-family: "Playfair Display", Georgia, serif;
 margin: 0;
 }
@@ -197,38 +194,58 @@ color: #1f4d34;
 
 /*   footer   */
 .pie-pagina {
-background: #1f4d34;
-color: #fff;
-padding: 40px 20px 10px;
-margin-top:30px;
+background-color: #1a1a1a; /* Color oscuro y elegante */
+color: #f1f1f1;
+padding: 50px 20px 0; /* Espaciado interno amplio */
+margin-top: auto; /* IMPORTANTE: Lo empuja siempre al fondo de la pantalla */
+font-family: 'Lato', sans-serif;
 }
+
+.contenedor-pie {
+max-width: 1200px;
+margin: 0 auto; /* Centra el contenido */
+}
+
+/* Usamos CSS Grid para que las columnas nunca se aplasten */
 .columnas-pie {
-display: flex;
-justify-content: space-between;
-gap: 24px;
-flex-wrap: wrap;
-max-width: 1000px;
-margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+gap: 40px;
+margin-bottom: 30px;
 }
+
 .titulo-columna {
-margin-bottom: 12px;
+color: #2f8f5b; /* El verde de tu logo/botones */
+font-size: 1.2rem;
+margin-bottom: 15px;
+font-family: 'Playfair Display', serif;
 }
+
 .enlaces-columna {
 display: flex;
 flex-direction: column;
-gap: 8px;
+gap: 12px;
 }
-.enlaces-columna a, .columnas-pie p {
-color: #d7e9db;
-font-size: 14px;
+
+.enlaces-columna a, 
+.enlaces-columna p {
+color: #cccccc;
+text-decoration: none;
+transition: color 0.3s ease;
+margin: 0;
+font-size: 0.95rem;
 }
+
+.enlaces-columna a:hover {
+color: #2f8f5b; /* Efecto verde al pasar el mouse */
+}
+
 .pie-inferior {
 text-align: center;
-font-size: 13px;
-color: #a9c9b3;
-margin-top: 24px;
-padding-top: 14px;
-border-top: 1px solid #336a4a;
+padding: 20px 0;
+border-top: 1px solid #333333; /* Línea separadora sutil */
+font-size: 0.85rem;
+color: #888888;
 }
 
 /*   rejillas de tarjetas (menu / ofertas)   */

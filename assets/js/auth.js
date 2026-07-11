@@ -1,35 +1,54 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     /* REGISTRO (registrar.html) */
     document.getElementById("form-registrar")?.addEventListener("submit", async (e) => {
-        e.preventDefault(); /*Evita que la página se recargue sola*/
-        
+        e.preventDefault();
+
         const email = document.getElementById("reg-correo").value;
         const password = document.getElementById("reg-password-ref").value;
+        const nombre = document.getElementById("reg-nombre").value;
+        const apellido = document.getElementById("reg-apellido").value; // NUEVO: Atrapamos apellido
+        const telefono = document.getElementById("reg-telefono").value;
+        const direccion = document.getElementById("reg-direccion").value;
 
         if (password !== document.getElementById("reg-confirm").value) {
             return alert("Las contraseñas no coinciden.");
         }
 
-        const { error } = await miSupabase.auth.signUp({
+        // 1. Guardamos en el sistema Auth
+        const { data, error } = await miSupabase.auth.signUp({
             email,
             password,
             options: {
                 data: {
-                    full_name: document.getElementById("reg-nombre").value,
-                    phone: document.getElementById("reg-telefono").value,
-                    address: document.getElementById("reg-direccion").value
+                    first_name: nombre,
+                    last_name: apellido,
+                    phone: telefono,
+                    address: direccion
                 }
             }
         });
 
         if (error) return alert("Error: " + error.message);
-        
-        // Muestra el aviso nativo de tu HTML y redirige
+
+        // 2. Guardamos en la tabla pública 'usuarios'
+        if (data && data.user) {
+            const { error: errorBD } = await miSupabase.from('usuarios').insert([{
+                id: data.user.id,
+                nombre: nombre,
+                apellidos: apellido, // NUEVO: Guardamos apellido
+                correo: email,
+                telefono: telefono,
+                direccion: direccion
+            }]);
+
+            if (errorBD) console.error("Error al guardar usuario:", errorBD);
+        }
+
         document.getElementById("aviso-cuenta-creada").style.display = "block";
         setTimeout(() => window.location.href = "login.html", 2000);
     });
-
+    
     /* INICIO DE SESIÓN (login.html) */
     document.getElementById("form-login")?.addEventListener("submit", async (e) => {
         e.preventDefault();
@@ -48,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const { error } = await miSupabase.auth.resetPasswordForEmail(
-            document.getElementById("rec-email").value, 
+            document.getElementById("rec-email").value,
             { redirectTo: window.location.origin + '/pages/actualizar_password.html' }
         );
 

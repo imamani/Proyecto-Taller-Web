@@ -22,7 +22,8 @@
         <div class="panel-info">
             <div class="icono-grande">🥗</div>
             <h2 class="titulo-auth">Rescata alimentos, ahorra</h2>
-            <p class="descripcion-auth">Únete a miles de personas que ya están reduciendo el desperdicio en Arequipa.</p>
+            <p class="descripcion-auth">Únete a miles de personas que ya están reduciendo el desperdicio en Arequipa.
+            </p>
             <div class="lista-beneficios">
                 <div class="beneficio-item">💸 70% de descuento</div>
                 <div class="beneficio-item">🚀 Pedidos listo en minutos</div>
@@ -35,23 +36,52 @@
                 <p class="descripcion-formulario">Es gratis y solo toma un momento</p>
                 <form id="form-registrar" autocomplete="on">
                     <p class="subtitulo-formulario">Datos personales</p>
+
                     <div class="fila-campos">
-                        <div class="campo-grupo"><label for="reg-nombre">Nombre completo</label>
-                            <div class="input-icono"><span>👤</span><input type="text" id="reg-nombre"
-                                    placeholder="Ej. Ana López" autocomplete="name" required /></div>
+                        <div class="campo-grupo">
+                            <label for="reg-nombre">Nombres</label>
+                            <div class="input-icono">
+                                <span>👤</span>
+                                <input type="text" id="reg-nombre" placeholder="Ej. Ana" autocomplete="given-name"
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo letras" required />
+                            </div>
                         </div>
-                        <div class="campo-grupo"><label for="reg-telefono">Teléfono</label>
-                            <div class="input-icono"><span>📱</span><input type="tel" id="reg-telefono"
-                                    placeholder="987654321" autocomplete="tel" required /></div>
+                        <div class="campo-grupo">
+                            <label for="reg-apellido">Apellidos</label>
+                            <div class="input-icono">
+                                <span>👥</span>
+                                <input type="text" id="reg-apellido" placeholder="Ej. López" autocomplete="family-name"
+                                    pattern="[A-Za-zÁÉÍÓÚáéíóúÑñ ]+" title="Solo letras" required />
+                            </div>
                         </div>
                     </div>
-                    <div class="campo-grupo"><label for="reg-correo">Correo electrónico</label>
-                        <div class="input-icono"><span>✉️</span><input type="email" id="reg-correo"
-                                placeholder="tu@correo.com" autocomplete="email" required /></div>
+
+                    <div class="fila-campos">
+                        <div class="campo-grupo">
+                            <label for="reg-telefono">Teléfono</label>
+                            <div class="input-icono">
+                                <span>📱</span>
+                                <input type="tel" id="reg-telefono" placeholder="987654321" autocomplete="off"
+                                    required />
+                            </div>
+                        </div>
+                        <div class="campo-grupo">
+                            <label for="reg-correo">Correo electrónico</label>
+                            <div class="input-icono">
+                                <span>✉️</span>
+                                <input type="email" id="reg-correo" placeholder="tu@correo.com" autocomplete="email"
+                                    required />
+                            </div>
+                        </div>
                     </div>
-                    <div class="campo-grupo"><label for="reg-direccion">Dirección de entrega</label>
-                        <div class="input-icono"><span>📍</span><input type="text" id="reg-direccion"
-                                placeholder="Av. Principal, Arequipa" autocomplete="street-address" required /></div>
+
+                    <div class="campo-grupo">
+                        <label for="reg-direccion">Dirección de entrega</label>
+                        <div class="input-icono">
+                            <span>📍</span>
+                            <input type="text" id="reg-direccion" placeholder="Av. Principal, Arequipa"
+                                autocomplete="street-address" required />
+                        </div>
                     </div>
                     <div class="campo-grupo">
                         <label for="reg-password-ref">Contraseña</label>
@@ -70,9 +100,11 @@
                     </div>
 
 
-                    <button type="submit" id="btn-login" class="boton boton-primario boton-ancho">✅ Crear mi cuenta gratis</button>
+                    <button type="submit" id="btn-login" class="boton boton-primario boton-ancho">✅ Crear mi cuenta
+                        gratis</button>
                 </form>
-                <div class="enlace-recuperar"><a href="login.html" class="enlace-simple">¿Ya tienes cuenta? Inicia sesión</a></div>
+                <div class="enlace-recuperar"><a href="login.html" class="enlace-simple">¿Ya tienes cuenta? Inicia
+                        sesión</a></div>
             </div>
         </div>
     </div>
