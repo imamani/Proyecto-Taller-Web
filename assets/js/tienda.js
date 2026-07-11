@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    /*  LÓGICA DEL CARRITO EN TIEMPO REAL (form_pedido.html) */
+    /* LÓGICA DEL CARRITO EN TIEMPO REAL (form_pedido.html) */
     const formPedido = document.getElementById("form-pedido");
 
     if (formPedido) {
@@ -32,6 +32,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const txtDelivery = document.getElementById("pedido-costo-delivery");
         const txtTotal = document.getElementById("pedido-total");
         const detalleCarrito = document.getElementById("detalle-carrito");
+
+        /* FUNCION PARA RECUPERAR EL CARRITO AL RECARGAR LA PÁGINA */
+        function recuperarCarritoDeSesion() {
+            const carritoGuardado = sessionStorage.getItem("carritoSalvaComida");
+            if (carritoGuardado) {
+                const carrito = JSON.parse(carritoGuardado);
+                filasPlatos.forEach(fila => {
+                    const idProducto = fila.getAttribute("data-id");
+                    if (carrito[idProducto]) {
+                        fila.querySelector(".cantidad-plato").textContent = carrito[idProducto];
+                    }
+                });
+            }
+            
+            const metodoGuardado = sessionStorage.getItem("metodoSalvaComida");
+            if (metodoGuardado) {
+                selectMetodo.value = metodoGuardado;
+            }
+        }
 
         /* REVISA EL STOCK LEYENDO STOCK_ACTUAL DE LA BASE DE DATOS */
         async function cargarStocksDesdeBaseDatos() {
@@ -53,9 +72,11 @@ document.addEventListener("DOMContentLoaded", () => {
         function calcularTotales() {
             let subtotal = 0;
             let productosHtml = "";
+            let carritoParaGuardar = {}; 
 
             filasPlatos.forEach(fila => {
                 const cantidad = parseInt(fila.querySelector(".cantidad-plato").textContent);
+                const idProducto = fila.getAttribute("data-id");
 
                 if (cantidad > 0) {
                     const nombre = fila.querySelector(".nombre-fila-plato").textContent;
@@ -64,6 +85,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
                     subtotal += (precio * cantidad);
                     productosHtml += `<p style="font-size:14px; margin:4px 0; color:#555;">${cantidad}x ${nombre} (S/ ${(precio * cantidad).toFixed(2)})</p>`;
+                    
+                    carritoParaGuardar[idProducto] = cantidad;
                 }
             });
 
@@ -74,6 +97,10 @@ document.addEventListener("DOMContentLoaded", () => {
             txtSubtotal.textContent = `S/ ${subtotal.toFixed(2)}`;
             txtDelivery.textContent = `S/ ${costoDelivery.toFixed(2)}`;
             txtTotal.textContent = `S/ ${totalFinal.toFixed(2)}`;
+
+            /* GUARDAR EL CARRITO EN LA MEMORIA DEL NAVEGADOR */
+            sessionStorage.setItem("carritoSalvaComida", JSON.stringify(carritoParaGuardar));
+            sessionStorage.setItem("metodoSalvaComida", selectMetodo.value);
         }
 
         /* FUNCIONALIDAD PARA AUMENTAR O DISMINUIR CANTIDAD DE COMPRA DE LOS PRODUCTOS "+" O "-" */
@@ -107,6 +134,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         selectMetodo.addEventListener("change", calcularTotales);
 
+        /* RECUPERAR DATOS AL CARGAR LA PÁGINA */
+        recuperarCarritoDeSesion();
+
         /* SELECCIONA AUTOMATICAMENTE EL PLATO "PEDIR YA" */
         const parametrosURL = new URLSearchParams(window.location.search);
         const platoID = parametrosURL.get("plato");
@@ -133,16 +163,21 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             /* DECLARACION DE TODAS LAS VARIABLES NECESARIAS */
-
             const metodoEntrega = selectMetodo.value;
             const metodoPago = formPedido.querySelector('input[name="metodo_pago"]:checked').value;
             const totalTexto = txtTotal.textContent;
             const totalFinal = parseFloat(totalTexto.replace("S/", "").trim());
-
             const costoDelivery = metodoEntrega === "delivery" ? 3.00 : 0.00;
 
+            /* CAPTURAR DATOS DEL RECEPTOR EDITADOS EN EL FORMULARIO */
+            const nombreFinal = document.getElementById("pedido-nombre").value.trim() || "Sin nombre";
+            const telefonoFinal = document.getElementById("pedido-telefono").value.trim() || "Sin teléfono";
+
             const cajaNotas = document.querySelector("textarea");
-            const notasAdicionales = cajaNotas && cajaNotas.value.trim() !== "" ? cajaNotas.value : "EMPTY";
+            const notasAdicionales = cajaNotas && cajaNotas.value.trim() !== "" ? cajaNotas.value : "Sin notas extra";
+
+            /* CONSOLIDAR DATOS EN LA NOTA PARA NO ALTERAR LA BASE DE DATOS */
+            const notaParaRestaurante = `Recibe: ${nombreFinal} | Telf: ${telefonoFinal} | Notas: ${notasAdicionales}`;
 
             if (totalFinal <= 0 || (metodoEntrega === "delivery" && totalFinal <= 3.00)) {
                 alert("Tu carrito está vacío. Agrega mínimo un producto.");
@@ -162,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     costo_envio: costoDelivery,
                     total_final: totalFinal,
                     estado: "Pendiente",
-                    notas: notasAdicionales
+                    notas: notaParaRestaurante /* SE ENVÍA EL NOMBRE Y TELÉFONO MODIFICADOS AQUÍ */
                 }])
                 .select()
                 .single();
@@ -205,6 +240,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     }
                 }
             }
+
+            /* LIMPIAMOS LA MEMORIA PARA QUE EL CARRITO QUEDE VACÍO DESPUÉS DE COMPRAR */
+            sessionStorage.removeItem("carritoSalvaComida");
+            sessionStorage.removeItem("metodoSalvaComida");
 
             document.getElementById("giro-carga").style.display = "none";
             document.getElementById("icono-exito").style.display = "block";

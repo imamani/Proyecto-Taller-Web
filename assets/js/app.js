@@ -10,6 +10,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     /* Obtener el usuario autenticado actual  */
     const { data: { user } } = await miSupabase.auth.getUser();
 
+    /* MEJORA DE UX: si la página requiere sesión (perfil o pedidos) y no hay
+       usuario logueado, antes se quedaba en blanco sin explicación alguna */
+    const requiereSesion = document.getElementById("form-perfil") || document.getElementById("lista-pedidos");
+    if (!user && requiereSesion) {
+        alert("Debes iniciar sesión para ver esta página.");
+        window.location.href = "login.html";
+        return;
+    }
+
     if (user) {
         /* Buscar al usuario en tu tabla pública 'usuarios' usando su ID único */
         const { data: usuarioBase } = await miSupabase
@@ -46,6 +55,46 @@ document.addEventListener("DOMContentLoaded", async () => {
             
             const cajaDireccion = document.getElementById("perf-direccion");
             if (cajaDireccion) cajaDireccion.value = direccion;
+
+            /* FALLO CORREGIDO: el formulario no tenía manejador de envío,
+               por lo que "Guardar Cambios" nunca actualizaba la base de datos */
+            formPerfil.addEventListener("submit", async (e) => {
+                e.preventDefault();
+
+                const btnGuardar = formPerfil.querySelector('button[type="submit"]');
+                const textoOriginal = btnGuardar ? btnGuardar.innerHTML : "";
+                if (btnGuardar) {
+                    btnGuardar.disabled = true;
+                    btnGuardar.innerHTML = "Guardando...";
+                }
+
+                const datosActualizados = {
+                    nombre: cajaNombre ? cajaNombre.value : nombre,
+                    telefono: cajaTelefono ? cajaTelefono.value : telefono,
+                    direccion: cajaDireccion ? cajaDireccion.value : direccion
+                };
+                if (cajaApellido) datosActualizados.apellidos = cajaApellido.value;
+
+                const { error: errorGuardado } = await miSupabase
+                    .from('usuarios')
+                    .update(datosActualizados)
+                    .eq('id', user.id);
+
+                if (btnGuardar) {
+                    btnGuardar.disabled = false;
+                    btnGuardar.innerHTML = textoOriginal;
+                }
+
+                const avisoGuardado = document.getElementById("aviso-guardado");
+                if (errorGuardado) {
+                    alert("No se pudo guardar: " + errorGuardado.message);
+                } else if (avisoGuardado) {
+                    avisoGuardado.style.display = "block";
+                    setTimeout(() => avisoGuardado.style.display = "none", 2500);
+                } else {
+                    alert("✅ Datos actualizados correctamente");
+                }
+            });
         }
 
         /* RELLENA EL APARTADO DEL FORMULARIO_PEDIDO (form_pedido.html) */

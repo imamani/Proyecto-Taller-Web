@@ -73,4 +73,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
         alert(error ? "Error: " + error.message : "Se ha enviado un enlace de recuperación a tu correo.");
     });
+
+    /* FALLO CORREGIDO: faltaba el envío del formulario para guardar la nueva
+       contraseña (actualizar_password.html); el botón no hacía nada */
+    document.getElementById("form-actualizar-password")?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const nuevaPassword = document.getElementById("new-password").value;
+
+        const { error } = await miSupabase.auth.updateUser({ password: nuevaPassword });
+
+        if (error) return alert("Error: " + error.message);
+
+        alert("✅ Contraseña actualizada con éxito. Ahora puedes iniciar sesión.");
+        window.location.href = "login.html";
+    });
 });
