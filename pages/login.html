@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- FIX #15: Content Security Policy básica para mitigar XSS -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://challenges.cloudflare.com; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://xuuajupcjxmpglatxmqf.supabase.co;">
     <title>Ingresar - SalvaComida</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
@@ -42,19 +44,22 @@
                     <div class="campo-grupo">
                         <label for="login-password">Contraseña</label>
                         <div class="input-icono"><span>🔒</span><input type="password" id="login-password"
-                                placeholder="Tu contraseña" autocomplete="current-password" required /></div>
+                                placeholder="Tu contraseña" autocomplete="current-password" minlength="8" maxlength="128" required /></div>
                     </div>
 
 
-                    <button type="submit" id="btn-login" class="boton boton-primario boton-ancho">🔑 Iniciar Sesión</button>
+                    <button type="submit" id="btn-login" class="boton boton-primario boton-ancho">🔑 Iniciar
+                        Sesión</button>
                 </form>
-                <div class="enlace-recuperar"><a href="recuperar.html" class="enlace-simple">¿Olvidaste tu contraseña?</a></div>
-                <button type="button" class="boton boton-secundario boton-ancho" onclick="window.location.href='registrar.html'">📝 Crear cuenta gratis</button>
+                <div class="enlace-recuperar"><a href="recuperar.html" class="enlace-simple">¿Olvidaste tu
+                        contraseña?</a></div>
+                <a href="registrar.html" class="boton boton-secundario boton-ancho">📝 Crear cuenta gratis</a>
             </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/carrito.js"></script>
     <script src="../assets/js/auth.js"></script>
 </body>
 

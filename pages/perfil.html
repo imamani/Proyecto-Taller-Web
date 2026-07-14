@@ -28,17 +28,28 @@
         <div class="contenido-cuenta">
             <h2 class="titulo-contenido">Mis Datos</h2>
             <form id="form-perfil">
-                <div class="campo-grupo">
-                    <label for="perf-nombre">Nombre completo</label>
-                    <input type="text" id="perf-nombre" placeholder="Tu nombre completo" required />
+                <div class="fila-campos">
+                    <div class="campo-grupo">
+                        <label for="perf-nombre">Nombres</label>
+                        <input type="text" id="perf-nombre" placeholder="Tus nombres" pattern="[A-Za-zÁÉÍÓÚÜáéíóúüÑñ ]+"
+                            maxlength="50" title="Solo letras" required />
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="perf-apellido">Apellidos</label>
+                        <input type="text" id="perf-apellido" placeholder="Tus apellidos"
+                            pattern="[A-Za-zÁÉÍÓÚÜáéíóúüÑñ ]+" maxlength="50" title="Solo letras" required />
+                    </div>
                 </div>
                 <div class="campo-grupo">
                     <label for="perf-telefono">Teléfono</label>
-                    <input type="tel" id="perf-telefono" placeholder="987654321" required />
+                    <input type="tel" id="perf-telefono" placeholder="987654321" inputmode="numeric" pattern="9[0-9]{8}"
+                        maxlength="9" minlength="9" title="9 dígitos, empezando en 9" required />
                 </div>
                 <div class="campo-grupo">
                     <label for="perf-direccion">Dirección de entrega</label>
-                    <input type="text" id="perf-direccion" placeholder="Av. Principal 123, Arequipa" required />
+                    <input type="text" id="perf-direccion" placeholder="Avenida Principal 123, Arequipa"
+                        pattern="[A-Za-zÁÉÍÓÚÜáéíóúüÑñ0-9,.\-#° ]+" maxlength="150"
+                        title="Letras, números, comas, puntos, guiones y #" required />
                 </div>
                 <button type="submit" class="boton boton-primario">💾 Guardar Cambios</button>
             </form>
@@ -47,6 +58,7 @@
     <div id="aviso-guardado" class="aviso-flotante">✅ ¡Datos guardados correctamente!</div>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/carrito.js"></script>
     <script src="../assets/js/tienda.js"></script>
 </body>
 
