@@ -1,11 +1,3 @@
-/**
- * mapa-ruta.js — Mapa interactivo de ruta de entrega con Mapbox GL JS
- * 
- * APIs utilizadas (100% gratuitas bajo el límite de 100k al mes):
- * - Mapbox GL JS: Renderizado visual 3D vectorial
- * - Mapbox Geocoding API: Geocodificación directa e inversa de altísima precisión
- * - Mapbox Directions API: Ruta óptima de entrega y cálculo de tiempo (ETA)
- */
 
 (function () {
     "use strict";
