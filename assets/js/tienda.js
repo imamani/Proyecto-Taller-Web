@@ -128,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
             postres: "Sabor Peruano"
         };
 
+        console.log("[SalvaComida] Renderizando men\u00fa con:", idsProductos.map(id => `${id}: "${CATALOGO_PRODUCTOS[id]?.nombre}"`));
         contenedorPlatos.innerHTML = idsProductos.map(id => {
             const prod = CATALOGO_PRODUCTOS[id];
             const nomSeg = typeof escapeHTML === 'function' ? escapeHTML(prod.nombre) : prod.nombre;
@@ -286,16 +287,23 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnAgregar.style.display = "";
             }
 
-            if (typeof idsConNombreActualizado !== "undefined" && idsConNombreActualizado.includes(id)) {
+            // Siempre sincronizar nombre y precio desde el catálogo actualizado (que ya fue leído de Supabase)
+            if (CATALOGO_PRODUCTOS[id]) {
                 const nombreEnTarjeta = tarjeta.querySelector(".nombre-plato, .nombre-oferta");
-                if (nombreEnTarjeta && CATALOGO_PRODUCTOS[id]) {
-                    nombreEnTarjeta.textContent = CATALOGO_PRODUCTOS[id].nombre;
+                if (nombreEnTarjeta) {
+                    const nombreActualizado = CATALOGO_PRODUCTOS[id].nombre;
+                    if (nombreEnTarjeta.textContent !== nombreActualizado) {
+                        nombreEnTarjeta.textContent = nombreActualizado;
+                    }
                 }
-            }
-            if (typeof idsConPrecioActualizado !== "undefined" && idsConPrecioActualizado.includes(id) && CATALOGO_PRODUCTOS[id]) {
-                const precioFormateado = `S/ ${CATALOGO_PRODUCTOS[id].precio.toFixed(2)}`;
+
                 const precioEnTarjeta = tarjeta.querySelector(".precio-plato, .precios-oferta .precio-actual");
-                if (precioEnTarjeta) precioEnTarjeta.textContent = precioFormateado;
+                if (precioEnTarjeta) {
+                    const precioFormateado = `S/ ${CATALOGO_PRODUCTOS[id].precio.toFixed(2)}`;
+                    if (precioEnTarjeta.textContent !== precioFormateado) {
+                        precioEnTarjeta.textContent = precioFormateado;
+                    }
+                }
             }
 
             const stockDisponible = obtenerStockDisponible(id);

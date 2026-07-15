@@ -37,25 +37,17 @@ async function cargarStockGlobalDelCarrito() {
     try {
         let { data, error } = await miSupabase
             .from('productos')
-            .select('id, nombre, precio, precio_original, stock_actual, imagen, categoria, restaurante, descripcion');
-
-        if (error) {
-            console.warn("No se pudo leer la columna 'precio_original' de la tabla 'productos'. Reintentando sin precio_original:", error.message);
-            const respaldo = await miSupabase
-                .from('productos')
-                .select('id, nombre, precio, stock_actual, imagen, categoria, restaurante, descripcion');
-            data = respaldo.data;
-            error = respaldo.error;
-        }
+            .select('id, nombre, precio, precio_original, stock_actual');
 
         if (!error && data) {
+            console.log("[SalvaComida] Datos recibidos de Supabase:", data.map(p => ({ id: p.id, nombre: p.nombre, precio: p.precio })));
             data.forEach(p => {
                 mapaStockProductos[p.id] = parseInt(p.stock_actual) || 0;
 
-                // Si el producto no existía en CATALOGO_PRODUCTOS, lo insertamos
                 if (!CATALOGO_PRODUCTOS[p.id]) {
+                    // Producto nuevo en BD que no está en el catálogo local: lo insertamos
                     CATALOGO_PRODUCTOS[p.id] = {
-                        nombre: p.nombre || "Producto nuevo",
+                        nombre: (p.nombre || "Producto nuevo").trim(),
                         precio: parseFloat(p.precio) || 0.00,
                         precio_original: parseFloat(p.precio_original) || parseFloat(p.precio) || 0.00,
                         imagen: p.imagen || "default.jpg",
@@ -63,18 +55,29 @@ async function cargarStockGlobalDelCarrito() {
                         restaurante: p.restaurante || "SalvaComida",
                         descripcion: p.descripcion || ""
                     };
+                    console.log(`[SalvaComida] Producto NUEVO insertado: ${p.id} -> "${p.nombre}"`);
                 } else {
-                    // Si ya existía, actualizamos sus campos con la base de datos
+                    // Producto existente: la BD SIEMPRE tiene prioridad sobre el hardcode
                     const nombreDeLaBD = (p.nombre || "").trim();
-                    if (nombreDeLaBD && CATALOGO_PRODUCTOS[p.id].nombre !== nombreDeLaBD) {
-                        CATALOGO_PRODUCTOS[p.id].nombre = nombreDeLaBD;
-                        idsConNombreActualizado.push(p.id);
+                    const nombreAnterior = CATALOGO_PRODUCTOS[p.id].nombre;
+                    if (nombreDeLaBD) {
+                        if (nombreAnterior !== nombreDeLaBD) {
+                            CATALOGO_PRODUCTOS[p.id].nombre = nombreDeLaBD;
+                            if (!idsConNombreActualizado.includes(p.id)) {
+                                idsConNombreActualizado.push(p.id);
+                            }
+                            console.log(`[SalvaComida] Nombre actualizado: ${p.id} "${nombreAnterior}" -> "${nombreDeLaBD}"`);
+                        }
                     }
 
                     const precioDeLaBD = parseFloat(p.precio);
-                    if (!isNaN(precioDeLaBD) && CATALOGO_PRODUCTOS[p.id].precio !== precioDeLaBD) {
-                        CATALOGO_PRODUCTOS[p.id].precio = precioDeLaBD;
-                        idsConPrecioActualizado.push(p.id);
+                    if (!isNaN(precioDeLaBD)) {
+                        if (CATALOGO_PRODUCTOS[p.id].precio !== precioDeLaBD) {
+                            CATALOGO_PRODUCTOS[p.id].precio = precioDeLaBD;
+                            if (!idsConPrecioActualizado.includes(p.id)) {
+                                idsConPrecioActualizado.push(p.id);
+                            }
+                        }
                     }
 
                     const precioOriginalDeLaBD = parseFloat(p.precio_original);
@@ -82,12 +85,18 @@ async function cargarStockGlobalDelCarrito() {
                         CATALOGO_PRODUCTOS[p.id].precio_original = precioOriginalDeLaBD;
                     }
 
+                    // Actualizar siempre los demás campos desde la BD
                     if (p.imagen) CATALOGO_PRODUCTOS[p.id].imagen = p.imagen;
                     if (p.categoria) CATALOGO_PRODUCTOS[p.id].categoria = p.categoria;
                     if (p.restaurante) CATALOGO_PRODUCTOS[p.id].restaurante = p.restaurante;
-                    if (p.descripcion) CATALOGO_PRODUCTOS[p.id].descripcion = p.descripcion;
+                    if (p.descripcion !== null && p.descripcion !== undefined) {
+                        CATALOGO_PRODUCTOS[p.id].descripcion = p.descripcion;
+                    }
                 }
             });
+            console.log("[SalvaComida] Catálogo final:", Object.fromEntries(Object.entries(CATALOGO_PRODUCTOS).map(([k,v]) => [k, v.nombre])));
+        } else {
+            console.error("[SalvaComida] Error al leer productos de Supabase:", error);
         }
     } catch (err) {
         console.error("No se pudo cargar el catálogo de productos ni el stock:", err);
