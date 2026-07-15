@@ -137,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 /* Buscar al usuario en tu tabla pública 'usuarios' usando su ID único */
                 const { data: usuarioBase } = await miSupabase
                     .from('usuarios')
-                    .select('nombre, apellidos, telefono, direccion') /* ACTUALIZADO: Lee nombre y apellidos */
+                    .select('nombre, apellidos, telefono, direccion') 
                     .eq('id', user.id)
                     .single();
 

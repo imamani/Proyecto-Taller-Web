@@ -6,7 +6,6 @@
     const MAPBOX_TOKEN = "pk.eyJ1IjoidmFubmMiLCJhIjoiY21ybGNqN2cxMjI2aDMzb3Jjdm81dnNwdiJ9.g6oT2NjaOj9MENQJ7FMHsQ";
     mapboxgl.accessToken = MAPBOX_TOKEN;
 
-    /* ─── Coordenadas de origen (calle Jerusalén transitable, Cercado, Arequipa) ─── */
     const ORIGEN = {
         lat: -16.3980,
         lng: -71.5360,

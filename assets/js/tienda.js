@@ -582,7 +582,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 }
             }
 
-            /* FIX QA H5 — Prevenir doble-clic deshabilitando el botón de submit solo después de validar con éxito */
             const btnSubmit = formPedido.querySelector('button[type="submit"]');
             if (btnSubmit) {
                 if (btnSubmit.disabled) return; /* Ya se está procesando */
