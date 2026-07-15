@@ -386,11 +386,13 @@ align-items: center;
 gap: 10px;
 margin: 10px 0;
 }
-.precio-anterior {
+.precio-anterior, .precios-oferta s {
 color: #999;
+white-space: nowrap;
 }
 .precio-actual {
 font-size: 18px;
+white-space: nowrap;
 }
 .etiqueta-descuento, .etiqueta-descuento-esquina {
 background: #e0663f;

@@ -747,4 +747,40 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     }
+
+    /* Formateador inteligente de fecha de expiración (MM/AA) */
+    const inputExpira = document.getElementById("tarjeta-expira");
+    if (inputExpira) {
+        inputExpira.addEventListener("input", (e) => {
+            let cursor = inputExpira.selectionStart;
+            let valorOriginal = inputExpira.value;
+            // Permitir solo números
+            let valorLimpio = valorOriginal.replace(/\D/g, "");
+            
+            if (valorLimpio.length > 4) {
+                valorLimpio = valorLimpio.slice(0, 4);
+            }
+            
+            let valorFormateado = valorLimpio;
+            if (valorLimpio.length > 2) {
+                valorFormateado = valorLimpio.slice(0, 2) + "/" + valorLimpio.slice(2);
+            }
+            
+            let diferencia = valorFormateado.length - valorOriginal.length;
+            inputExpira.value = valorFormateado;
+            
+            if (cursor !== null) {
+                const nuevaPos = Math.max(0, cursor + diferencia);
+                inputExpira.setSelectionRange(nuevaPos, nuevaPos);
+            }
+        });
+    }
+
+    /* Limitador dinámico de CVV (solo números) */
+    const inputCvv = document.getElementById("tarjeta-cvv");
+    if (inputCvv) {
+        inputCvv.addEventListener("input", () => {
+            inputCvv.value = inputCvv.value.replace(/\D/g, "");
+        });
+    }
 });
