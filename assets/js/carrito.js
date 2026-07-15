@@ -37,20 +37,20 @@ async function cargarStockGlobalDelCarrito() {
     try {
         let { data, error } = await miSupabase
             .from('productos')
-            .select('id, nombre, precio, precio_original, stock_actual');
+            .select('id, nombre, precio, precio_original, stock_actual, imagen, categoria, restaurante, descripcion');
 
         if (error) {
             console.warn("No se pudo leer la columna 'precio_original' de la tabla 'productos'. Reintentando sin precio_original:", error.message);
             const respaldo = await miSupabase
                 .from('productos')
-                .select('id, nombre, precio, stock_actual');
+                .select('id, nombre, precio, stock_actual, imagen, categoria, restaurante, descripcion');
             data = respaldo.data;
             error = respaldo.error;
         }
 
         if (!error && data) {
             data.forEach(p => {
-                mapaStockProductos[p.id] = parseInt(p.stock_actual);
+                mapaStockProductos[p.id] = parseInt(p.stock_actual) || 0;
 
                 // Si el producto no existía en CATALOGO_PRODUCTOS, lo insertamos
                 if (!CATALOGO_PRODUCTOS[p.id]) {
@@ -139,24 +139,27 @@ function guardarCarrito(carrito) {
 }
 
 function agregarAlCarrito(idProducto, cantidad = 1) {
-    if (!CATALOGO_PRODUCTOS[idProducto] || cantidad <= 0) return;
+    if (!CATALOGO_PRODUCTOS[idProducto] || cantidad <= 0) return false;
 
     const carrito = obtenerCarrito();
     const stockDisponible = obtenerStockDisponible(idProducto);
     const cantidadActual = carrito[idProducto] || 0;
     let cantidadFinal = cantidadActual + cantidad;
+    let superoStock = false;
 
     if (cantidadFinal > stockDisponible) {
         cantidadFinal = stockDisponible;
+        superoStock = true;
         if (cantidadFinal <= cantidadActual) {
-            mostrarAvisoCarrito(`⚠️ Ya tienes el máximo disponible (${stockDisponible}) de este producto`);
-            return;
+            mostrarAvisoCarrito(`⚠️ Solo tenemos ${stockDisponible} unidades de este producto`);
+            return false;
         }
-        mostrarAvisoCarrito(`⚠️ Solo quedaban ${cantidadFinal - cantidadActual} unidades más, se ajustó tu carrito`);
+        mostrarAvisoCarrito(`⚠️ Solo tenemos ${stockDisponible} unidades de este producto, se ajustó tu cantidad`);
     }
 
     carrito[idProducto] = cantidadFinal;
     guardarCarrito(carrito);
+    return !superoStock;
 }
 
 function establecerCantidadCarrito(idProducto, cantidad) {
@@ -168,7 +171,7 @@ function establecerCantidadCarrito(idProducto, cantidad) {
     } else {
         if (cantidad > stockDisponible) {
             cantidad = stockDisponible;
-            mostrarAvisoCarrito(`⚠️ Solo hay ${stockDisponible} unidades disponibles`);
+            mostrarAvisoCarrito(`⚠️ Solo tenemos ${stockDisponible} unidades de este producto`);
         }
         if (cantidad <= 0) {
             delete carrito[idProducto];
@@ -268,11 +271,25 @@ function actualizarWidgetCarrito() {
     const idsEnCarrito = Object.keys(carrito).filter(id => carrito[id] > 0 && CATALOGO_PRODUCTOS[id]);
     const totalUnidades = totalUnidadesCarrito();
 
+    // Animación física del contador para llamar la atención del usuario de forma amigable
+    const cantidadAnterior = parseInt(contador.textContent) || 0;
     contador.textContent = totalUnidades;
     contador.style.display = totalUnidades > 0 ? "flex" : "none";
 
+    if (totalUnidades !== cantidadAnterior && totalUnidades > 0) {
+        contador.classList.remove("animar-contador");
+        void contador.offsetWidth; // Forzar reflujo de renderizado en el navegador
+        contador.classList.add("animar-contador");
+    }
+
     if (idsEnCarrito.length === 0) {
-        contenedorItems.innerHTML = `<p class="carrito-vacio">Tu carrito está vacío.</p>`;
+        const rutaMenu = ENTRO_DESDE_PAGINAS ? "menu.html" : "pages/menu.html";
+        contenedorItems.innerHTML = `
+            <div style="text-align: center; padding: 25px 15px;">
+                <p class="carrito-vacio" style="margin-bottom: 12px; color: #666; font-size: 14px;">Tu carrito está vacío</p>
+                <a href="${rutaMenu}" class="boton boton-primario" style="font-size: 12px; padding: 8px 16px; border-radius: 8px; display: inline-block;">😋 ¡Ver el menú de hoy!</a>
+            </div>
+        `;
     } else {
         contenedorItems.innerHTML = idsEnCarrito.map(id => {
             const producto = CATALOGO_PRODUCTOS[id];
@@ -282,16 +299,16 @@ function actualizarWidgetCarrito() {
             /* FIX #3 — Escapar nombre del producto antes de innerHTML */
             const nombreSeguro = typeof escapeHTML === 'function' ? escapeHTML(producto.nombre) : producto.nombre;
             return `
-                <div class="item-carrito" data-id="${escapeHTML ? escapeHTML(id) : id}">
+                <div class="item-carrito" data-id="${typeof escapeHTML === 'function' ? escapeHTML(id) : id}">
                     <img src="${RUTA_IMAGENES_CARRITO}${producto.imagen}" alt="${nombreSeguro}" class="item-carrito-img" loading="lazy">
                     <div class="item-carrito-info">
                         <p class="item-carrito-nombre">${nombreSeguro}</p>
                         <p class="item-carrito-precio">S/ ${producto.precio.toFixed(2)} c/u</p>
                     </div>
                     <div class="item-carrito-control">
-                        <button type="button" class="btn-item-restar" data-id="${escapeHTML ? escapeHTML(id) : id}" aria-label="Quitar una unidad">-</button>
+                        <button type="button" class="btn-item-restar" data-id="${typeof escapeHTML === 'function' ? escapeHTML(id) : id}" aria-label="Quitar una unidad">-</button>
                         <span>${parseInt(carrito[id]) || 0}</span>
-                        <button type="button" class="btn-item-sumar" data-id="${escapeHTML ? escapeHTML(id) : id}" aria-label="Agregar una unidad" ${alcanzoElTope ? "disabled" : ""}>+</button>
+                        <button type="button" class="btn-item-sumar" data-id="${typeof escapeHTML === 'function' ? escapeHTML(id) : id}" aria-label="Agregar una unidad" ${alcanzoElTope ? "disabled" : ""}>+</button>
                     </div>
                     <span class="item-carrito-subtotal">S/ ${subtotal}</span>
                 </div>

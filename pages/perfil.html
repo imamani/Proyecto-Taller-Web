@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://xuuajupcjxmpglatxmqf.supabase.co;">
     <title>Mi Perfil - SalvaComida</title>
     <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lato:wght@400;600;700&display=swap"
@@ -12,7 +13,17 @@
 </head>
 
 <body class="pagina-perfil">
-    <nav class="barra-nav"><a href="../index.html" class="marca-nav">🥗 SalvaComida</a></nav>
+    <nav class="barra-nav">
+        <a href="../index.html" class="marca-nav">🥗 SalvaComida</a>
+        <button id="btn-menu" class="btn-hamburguesa"
+            aria-label="Abrir menú"><span></span><span></span><span></span></button>
+        <ul class="lista-nav" id="menu-nav">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="menu.html">Menú</a></li>
+            <li><a href="ofertas.html">🔥 Ofertas</a></li>
+            <li><a href="login.html" class="enlace-destacado">Ingresar</a></li>
+        </ul>
+    </nav>
     <div class="contenedor-cuenta">
         <div class="barra-lateral">
             <div class="avatar-contenedor">
@@ -59,7 +70,6 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../assets/js/app.js"></script>
     <script src="../assets/js/carrito.js"></script>
-    <script src="../assets/js/tienda.js"></script>
 </body>
 
 </html>

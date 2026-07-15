@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="stock-plato" data-stock-info>Consultando stock...</div>
                         <div class="control-cantidad-tarjeta">
                             <button type="button" class="btn-restar-tarjeta" aria-label="Disminuir cantidad">-</button>
-                            <span class="cantidad-tarjeta">1</span>
+                            <span class="cantidad-tarjeta">0</span>
                             <button type="button" class="btn-sumar-tarjeta" aria-label="Aumentar cantidad">+</button>
                         </div>
                         <button type="button" class="boton boton-primario btn-agregar-carrito">🛒 Pedir ahora</button>
@@ -93,7 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             <div class="stock-plato" data-stock-info>Consultando stock...</div>
                             <div class="control-cantidad-tarjeta">
                                 <button type="button" class="btn-restar-tarjeta" aria-label="Disminuir cantidad">-</button>
-                                <span class="cantidad-tarjeta">1</span>
+                                <span class="cantidad-tarjeta">0</span>
                                 <button type="button" class="btn-sumar-tarjeta" aria-label="Aumentar cantidad">+</button>
                             </div>
                             <button type="button" class="enlace-pedir btn-agregar-carrito">Pedir ya →</button>
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <div class="stock-plato" data-stock-info>Consultando stock...</div>
                     <div class="control-cantidad-tarjeta">
                         <button type="button" class="btn-restar-tarjeta" aria-label="Disminuir cantidad">-</button>
-                        <span class="cantidad-tarjeta">1</span>
+                        <span class="cantidad-tarjeta">0</span>
                         <button type="button" class="btn-sumar-tarjeta" aria-label="Aumentar cantidad">+</button>
                     </div>
                     <button type="button" class="boton boton-pequeno btn-agregar-carrito">🛒 Añadir</button>
@@ -198,12 +198,12 @@ document.addEventListener("DOMContentLoaded", () => {
             pintarStockDeTarjetas(tarjetasProducto);
 
             tarjetasProducto.forEach(tarjeta => {
-                const contador = tarjeta.querySelector(".cantidad-tarjeta");
                 const btnRestar = tarjeta.querySelector(".btn-restar-tarjeta");
                 const btnSumar = tarjeta.querySelector(".btn-sumar-tarjeta");
                 const btnAgregar = tarjeta.querySelector(".btn-agregar-carrito");
+                const contador = tarjeta.querySelector(".cantidad-tarjeta");
 
-                if (!contador || !btnRestar || !btnSumar || !btnAgregar) return;
+                if (!btnRestar || !btnSumar || !btnAgregar || !contador) return;
 
                 // Clonación para limpiar listeners anteriores
                 const nuevoBtnSumar = btnSumar.cloneNode(true);
@@ -214,30 +214,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 btnRestar.parentNode.replaceChild(nuevoBtnRestar, btnRestar);
                 btnAgregar.parentNode.replaceChild(nuevoBtnAgregar, btnAgregar);
 
+                const id = tarjeta.getAttribute("data-id");
+
                 nuevoBtnSumar.addEventListener("click", () => {
                     const stockMaximo = parseInt(tarjeta.dataset.stockMaximo) || 99;
-                    let cantidad = parseInt(contador.textContent) || 1;
+                    let cantidad = parseInt(contador.textContent) || 0;
                     if (cantidad < stockMaximo) {
                         contador.textContent = cantidad + 1;
                     } else {
-                        mostrarAvisoCarrito(`Solo hay ${stockMaximo} unidades disponibles`);
+                        mostrarAvisoCarrito(`⚠️ Solo tenemos ${stockMaximo} unidades de este producto`);
                     }
                 });
 
                 nuevoBtnRestar.addEventListener("click", () => {
-                    let cantidad = parseInt(contador.textContent) || 1;
-                    if (cantidad > 1) contador.textContent = cantidad - 1;
+                    let cantidad = parseInt(contador.textContent) || 0;
+                    if (cantidad > 0) {
+                        contador.textContent = cantidad - 1;
+                    }
                 });
 
                 nuevoBtnAgregar.addEventListener("click", () => {
-                    const id = tarjeta.getAttribute("data-id");
-                    const cantidadElegida = parseInt(contador.textContent) || 1;
-                    const nombreProducto = tarjeta.querySelector(".nombre-plato, .nombre-oferta");
+                    const stockDisponible = obtenerStockDisponible(id);
+                    if (stockDisponible <= 0) return;
 
-                    agregarAlCarrito(id, cantidadElegida);
-                    mostrarAvisoCarrito(`✅ ${nombreProducto ? nombreProducto.textContent : "Producto"} añadido al carrito`);
+                    let cantidadElegida = parseInt(contador.textContent) || 0;
+                    
+                    // Si el contador está en 0, añadimos 1 por comodidad del usuario
+                    if (cantidadElegida <= 0) {
+                        cantidadElegida = 1;
+                        contador.textContent = "1";
+                    }
 
-                    contador.textContent = "1";
+                    const exitoSinAjuste = agregarAlCarrito(id, cantidadElegida);
+                    if (exitoSinAjuste) {
+                        const nombreProducto = tarjeta.querySelector(".nombre-plato, .nombre-oferta");
+                        mostrarAvisoCarrito(`✅ ${nombreProducto ? nombreProducto.textContent : "Producto"} añadido al carrito`);
+                    }
                 });
             });
 
@@ -261,6 +273,18 @@ document.addEventListener("DOMContentLoaded", () => {
             const contador = tarjeta.querySelector(".cantidad-tarjeta");
             const btnAgregar = tarjeta.querySelector(".btn-agregar-carrito");
             const btnSumar = tarjeta.querySelector(".btn-sumar-tarjeta");
+            const btnRestar = tarjeta.querySelector(".btn-restar-tarjeta");
+            const controlCantidad = tarjeta.querySelector(".control-cantidad-tarjeta");
+
+            // Asegurarnos de remover la clase hidden por si quedó de la versión anterior
+            if (controlCantidad) {
+                controlCantidad.classList.remove("hidden");
+                controlCantidad.style.display = ""; // volver al display por defecto
+            }
+            if (btnAgregar) {
+                btnAgregar.classList.remove("hidden");
+                btnAgregar.style.display = "";
+            }
 
             if (typeof idsConNombreActualizado !== "undefined" && idsConNombreActualizado.includes(id)) {
                 const nombreEnTarjeta = tarjeta.querySelector(".nombre-plato, .nombre-oferta");
@@ -287,6 +311,7 @@ document.addEventListener("DOMContentLoaded", () => {
             textoStock.classList.remove("stock-disponible", "stock-bajo", "stock-agotado");
             if (btnAgregar) { btnAgregar.disabled = false; btnAgregar.classList.remove("boton-deshabilitado"); }
             if (btnSumar) btnSumar.disabled = false;
+            if (btnRestar) btnRestar.disabled = false;
 
             if (stockDisponible <= 0) {
                 textoStock.textContent = "❌ Agotado por hoy";
@@ -294,6 +319,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 if (contador) contador.textContent = "0";
                 if (btnAgregar) { btnAgregar.disabled = true; btnAgregar.classList.add("boton-deshabilitado"); }
                 if (btnSumar) btnSumar.disabled = true;
+                if (btnRestar) btnRestar.disabled = true;
             } else if (stockDisponible <= 5) {
                 textoStock.textContent = `⚠️ ¡Solo quedan ${stockDisponible} unidades!`;
                 textoStock.classList.add("stock-bajo");
@@ -338,9 +364,10 @@ document.addEventListener("DOMContentLoaded", () => {
                     /* FIX #2 — Escapar nombre del producto antes de innerHTML */
                     const nomSeg = typeof escapeHTML === 'function' ? escapeHTML(producto.nombre) : producto.nombre;
                     const idSeg = typeof escapeHTML === 'function' ? escapeHTML(id) : id;
+                    const imgSeg = typeof escapeHTML === 'function' ? escapeHTML(producto.imagen) : producto.imagen;
                     return `
                         <div class="item-carrito" data-id="${idSeg}">
-                            <img src="../image/${producto.imagen}" alt="${nomSeg}" class="item-carrito-img">
+                            <img src="../image/${imgSeg}" alt="${nomSeg}" class="item-carrito-img">
                             <div class="item-carrito-info">
                                 <p class="item-carrito-nombre">${nomSeg}</p>
                                 <p class="item-carrito-precio">S/ ${producto.precio.toFixed(2)} c/u</p>
@@ -382,11 +409,31 @@ document.addEventListener("DOMContentLoaded", () => {
         selectMetodo.addEventListener("change", renderizarCheckout);
 
         const datosTarjeta = document.getElementById("datos-tarjeta");
+        const datosYapePlin = document.getElementById("datos-yape-plin");
+        const textoPagoQr = document.getElementById("texto-pago-qr");
+        const imgPagoQr = document.getElementById("img-pago-qr");
         const radiosPago = formPedido.querySelectorAll('input[name="metodo_pago"]');
+
         function actualizarVisibilidadTarjeta() {
             const seleccionado = formPedido.querySelector('input[name="metodo_pago"]:checked');
+            const valor = seleccionado ? seleccionado.value : "";
+
             if (datosTarjeta) {
-                datosTarjeta.style.display = (seleccionado && seleccionado.value === "Tarjeta") ? "block" : "none";
+                datosTarjeta.style.display = (valor === "Tarjeta") ? "block" : "none";
+            }
+
+            if (datosYapePlin && textoPagoQr && imgPagoQr) {
+                if (valor === "Yape" || valor === "Plin") {
+                    datosYapePlin.classList.remove("hidden");
+                    datosYapePlin.style.display = "block";
+                    textoPagoQr.textContent = `📱 Escanea este código para pagar tu pedido con ${valor}`;
+                    imgPagoQr.src = valor === "Yape" ? "../image/YAPE.webp" : "../image/PLIN.webp";
+                    imgPagoQr.alt = `Código QR de ${valor}`;
+                    imgPagoQr.style.display = "block";
+                } else {
+                    datosYapePlin.classList.add("hidden");
+                    datosYapePlin.style.display = "none";
+                }
             }
         }
         radiosPago.forEach(radio => radio.addEventListener("change", actualizarVisibilidadTarjeta));
@@ -513,11 +560,10 @@ document.addEventListener("DOMContentLoaded", () => {
             /* FIX #11 — Sanitizar notas: maxlength en JS + strip de HTML */
             let notasRaw = (cajaNotas && cajaNotas.value) ? cajaNotas.value.trim() : "";
             if (notasRaw.length > 200) notasRaw = notasRaw.slice(0, 200);
-            notasRaw = notasRaw.replace(/<[^>]*>/g, '').replace(/&/g, '&amp;');
+            notasRaw = notasRaw.replace(/[<>]/g, '').replace(/&/g, '&amp;');
             const notasAdicionales = notasRaw !== "" ? notasRaw : "Sin notas extra";
 
-            /* CONSOLIDAR DATOS EN LA NOTA PARA NO ALTERAR LA BASE DE DATOS */
-            const notaParaRestaurante = `Recibe: ${nombreFinal} | Telf: ${telefonoFinal} | Dirección: ${direccionFinal} | Notas: ${notasAdicionales}`;
+
 
             /* VALIDACIÓN DE LA PASARELA DE PAGO ANTES DE "COBRAR" */
             if (metodoPago === "Tarjeta") {
@@ -526,6 +572,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert("⚠️ " + errorTarjeta);
                     return;
                 }
+            }
+
+            /* FIX QA H5 — Prevenir doble-clic deshabilitando el botón de submit solo después de validar con éxito */
+            const btnSubmit = formPedido.querySelector('button[type="submit"]');
+            if (btnSubmit) {
+                if (btnSubmit.disabled) return; /* Ya se está procesando */
+                btnSubmit.disabled = true;
+                btnSubmit.dataset.textoOriginal = btnSubmit.innerHTML;
+                btnSubmit.innerHTML = "Procesando...";
             }
 
             const pantallaCarga = document.getElementById("pantalla-pago");
@@ -601,7 +656,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         costo_envio: costoDelivery,
                         total_final: totalFinal,
                         estado: "Pendiente",
-                        notas: notaParaRestaurante
+                        notas: notasAdicionales
                     }])
                     .select()
                     .single();
@@ -648,7 +703,40 @@ document.addEventListener("DOMContentLoaded", () => {
             } catch (errorInesperado) {
                 console.error("Error inesperado al procesar el pago:", errorInesperado);
                 if (pantallaCarga) pantallaCarga.style.display = "none";
+                /* FIX QA H5 — Re-habilitar botón en caso de error */
+                if (btnSubmit) {
+                    btnSubmit.disabled = false;
+                    btnSubmit.innerHTML = btnSubmit.dataset.textoOriginal || "Hacer pedido";
+                }
                 alert("❌ Ocurrió un error al procesar tu pago. Por favor intenta nuevamente.");
+            }
+        });
+    }
+
+    /* Formateador inteligente de número de tarjeta para evitar que el cursor salte al final al editar (M11) */
+    const inputTarjeta = document.getElementById("tarjeta-numero");
+    if (inputTarjeta) {
+        inputTarjeta.addEventListener("input", (e) => {
+            let cursor = inputTarjeta.selectionStart;
+            let valorOriginal = inputTarjeta.value;
+            let valorSoloNumeros = valorOriginal.replace(/\D/g, "");
+            
+            if (valorSoloNumeros.length > 16) {
+                valorSoloNumeros = valorSoloNumeros.slice(0, 16);
+            }
+            
+            let partes = [];
+            for (let i = 0; i < valorSoloNumeros.length; i += 4) {
+                partes.push(valorSoloNumeros.slice(i, i + 4));
+            }
+            let valorFormateado = partes.join(" ");
+            
+            let diferenciaEspacios = (valorFormateado.match(/ /g) || []).length - (valorOriginal.slice(0, cursor).match(/ /g) || []).length;
+            inputTarjeta.value = valorFormateado;
+            
+            if (cursor !== null) {
+                const nuevaPos = Math.max(0, cursor + diferenciaEspacios);
+                inputTarjeta.setSelectionRange(nuevaPos, nuevaPos);
             }
         });
     }

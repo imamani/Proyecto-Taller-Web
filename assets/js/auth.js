@@ -48,7 +48,7 @@ const CONTRASENAS_COMUNES = [
 
 const PASSWORD_MAX_LENGTH = 128; /* FIX #6 — Anti-ReDoS: límite máximo */
 
-function contrasenaEsDebil(password) {
+function contrasenaEsDebil(password, email = "") {
     if (typeof password !== "string") return true;
 
     /* FIX #6 — Limitar longitud ANTES de aplicar regex para evitar ReDoS */
@@ -57,6 +57,11 @@ function contrasenaEsDebil(password) {
     const limpia = password.trim();
     if (limpia.length === 0) return true;
     if (limpia !== password) return "espacios";
+
+    /* Evitar contraseñas idénticas al correo del usuario */
+    if (email && typeof email === "string" && limpia.toLowerCase() === email.toLowerCase().trim()) {
+        return "correo";
+    }
 
     const enMinusculas = limpia.toLowerCase();
     if (CONTRASENAS_COMUNES.includes(enMinusculas)) return true;
@@ -152,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("reg-password-ref").focus();
             return;
         }
-        const resultadoDebilidad = contrasenaEsDebil(password);
+        const resultadoDebilidad = contrasenaEsDebil(password, email);
         if (resultadoDebilidad === "maxlength") {
             mostrarErrorCampo("reg-password-ref", `La contraseña no puede superar los ${PASSWORD_MAX_LENGTH} caracteres.`);
             document.getElementById("reg-password-ref").focus();
@@ -160,6 +165,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         if (resultadoDebilidad === "espacios") {
             mostrarErrorCampo("reg-password-ref", "La contraseña no puede empezar ni terminar con espacios.");
+            document.getElementById("reg-password-ref").focus();
+            return;
+        }
+        if (resultadoDebilidad === "correo") {
+            mostrarErrorCampo("reg-password-ref", "La contraseña no puede ser idéntica a tu dirección de correo electrónico.");
             document.getElementById("reg-password-ref").focus();
             return;
         }
@@ -285,11 +295,25 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         mostrarErrorCampo("rec-email", null);
 
-        /* FIX #14 — Hardcodear el redirectTo, nunca usar window.location.origin */
+        /* FIX QA M8 — Estado de carga en el botón */
+        const btnRecuperar = document.getElementById("btn-recuperar");
+        if (btnRecuperar) {
+            btnRecuperar.disabled = true;
+            btnRecuperar.innerHTML = "Enviando...";
+        }
+
+        /* Redirección dinámica basada en el origen del navegador para soportar Live Server local */
+        const redirectUrl = `${window.location.origin}/pages/actualizar_password.html`;
+
         const { error } = await miSupabase.auth.resetPasswordForEmail(
             email,
-            { redirectTo: "https://xuuajupcjxmpglatxmqf.supabase.co/pages/actualizar_password.html" }
+            { redirectTo: redirectUrl }
         );
+
+        if (btnRecuperar) {
+            btnRecuperar.disabled = false;
+            btnRecuperar.innerHTML = "✉️ Enviar Enlace";
+        }
 
         if (!error) ultimoEnvioRecuperacion = Date.now();
         alert(error ? "Error: " + error.message : "Se ha enviado un enlace de recuperación a tu correo.");
@@ -301,6 +325,7 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
 
         const nuevaPassword = document.getElementById("new-password").value;
+        const confirmarPassword = document.getElementById("confirm-password").value;
 
         if (nuevaPassword.length < 8) {
             mostrarErrorCampo("new-password", "La contraseña debe tener mínimo 8 caracteres.");
@@ -320,6 +345,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         mostrarErrorCampo("new-password", null);
+
+        if (nuevaPassword !== confirmarPassword) {
+            mostrarErrorCampo("confirm-password", "Las contraseñas no coinciden.");
+            return;
+        }
+        mostrarErrorCampo("confirm-password", null);
 
         const { error } = await miSupabase.auth.updateUser({ password: nuevaPassword });
 

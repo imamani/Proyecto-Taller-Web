@@ -1,3 +1,6 @@
+.hidden {
+    display: none !important;
+}
 body {
 margin: 0;
 font-family: "Lato", Arial, sans-serif;
@@ -722,17 +725,18 @@ font-weight: 700;
 margin-bottom: 10px;
 }
 .pantalla-carga {
-display: none;
-position: fixed;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background: rgba(255, 255, 255, 0.95);
-flex-direction: column;
-align-items: center;
-justify-content: center;
-gap: 16px;
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    z-index: 2000;
 }
 .giro-carga {
 width: 40px;
@@ -959,37 +963,70 @@ to {
 .stock-plato.stock-agotado {
     color: #c0392b;
 }
+@keyframes tarjetaControlFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
 .control-cantidad-tarjeta {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     margin-bottom: 10px;
+}
+.control-cantidad-tarjeta:not(.hidden) {
+    animation: tarjetaControlFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .control-cantidad-tarjeta .btn-restar-tarjeta,
 .control-cantidad-tarjeta .btn-sumar-tarjeta {
-    width: 26px;
-    height: 26px;
-    border-radius: 6px;
-    border: 1px solid #2f8f5b;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 2px solid #2f8f5b;
     background: #fff;
     color: #2f8f5b;
     font-weight: 700;
+    font-size: 16px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+.control-cantidad-tarjeta .btn-restar-tarjeta:hover,
+.control-cantidad-tarjeta .btn-sumar-tarjeta:hover {
+    background: #2f8f5b;
+    color: #fff;
 }
 .control-cantidad-tarjeta .btn-restar-tarjeta:disabled,
 .control-cantidad-tarjeta .btn-sumar-tarjeta:disabled {
-    opacity: 0.4;
+    opacity: 0.35;
     cursor: not-allowed;
+    background: #f5f5f5;
+    border-color: #ccc;
+    color: #999;
 }
 .control-cantidad-tarjeta .cantidad-tarjeta {
-    min-width: 18px;
+    min-width: 24px;
     text-align: center;
     font-weight: 700;
+    font-size: 16px;
 }
 .btn-agregar-carrito.boton-deshabilitado,
 .btn-agregar-carrito:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    background: #ccc !important;
+    border-color: #ccc !important;
+    color: #666 !important;
+}
+.btn-agregar-carrito:not(.hidden) {
+    animation: tarjetaControlFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 .tarjeta-oferta-dia .control-cantidad-tarjeta {
     justify-content: flex-start;
@@ -1012,6 +1049,11 @@ to {
     padding: 4px;
     color: #fff;
 }
+@keyframes latidoContador {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.4); background-color: #2f8f5b; }
+    100% { transform: scale(1); }
+}
 .contador-carrito {
     position: absolute;
     top: -6px;
@@ -1027,6 +1069,10 @@ to {
     align-items: center;
     justify-content: center;
     padding: 0 4px;
+    transition: background-color 0.2s ease;
+}
+.contador-carrito.animar-contador {
+    animation: latidoContador 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 .desplegable-carrito {
     display: none;
@@ -1150,6 +1196,100 @@ to {
     z-index: 300;
 }
 
+/* ── Mapa de Ruta de Entrega ── */
+.seccion-mapa {
+    overflow: hidden;
+}
+.contenedor-mapa {
+    width: 100%;
+    height: 350px;
+    border-radius: 10px;
+    border: 2px solid #e0e0e0;
+    margin-bottom: 16px;
+    z-index: 1;
+}
+.panel-info-ruta {
+    margin-top: 4px;
+}
+.info-ruta-contenido {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #555;
+}
+.info-ruta-icono {
+    font-size: 20px;
+    flex-shrink: 0;
+}
+.info-ruta-texto {
+    line-height: 1.4;
+}
+.detalles-ruta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.detalle-ruta-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 14px 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    flex: 1;
+    min-width: 160px;
+}
+.detalle-ruta-item.detalle-principal {
+    background: linear-gradient(135deg, #eaf7ef 0%, #d4edda 100%);
+    border: 1px solid #b8dfc8;
+    flex-basis: 100%;
+}
+.detalle-icono {
+    font-size: 24px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+.detalle-etiqueta {
+    display: block;
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+.detalle-valor {
+    display: block;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2b2b2b;
+    font-family: "Playfair Display", Georgia, serif;
+}
+.detalle-valor-sm {
+    font-size: 14px;
+    font-family: "Lato", Arial, sans-serif;
+    font-weight: 600;
+}
+.detalle-rango {
+    display: block;
+    font-size: 12px;
+    color: #2f8f5b;
+    font-weight: 600;
+    margin-top: 2px;
+}
+/* Override de z-index de Mapbox para no interferir con navbar sticky */
+.mapboxgl-canvas-container { z-index: 1 !important; }
+.mapboxgl-control-container { z-index: 2 !important; }
+/* Estilo custom para los marcadores */
+.marcador-custom {
+    background: none !important;
+    border: none !important;
+}
+
 /* DISEÑO RESPONSIVO PARA CELULARES Y TABLETS */
 @media (max-width: 768px) {
     
@@ -1231,5 +1371,16 @@ to {
     .lista-beneficios,
     .beneficios-mini {
         display: none;
+    }
+
+    /* Mapa de ruta en móvil */
+    .contenedor-mapa {
+        height: 250px;
+    }
+    .detalles-ruta {
+        flex-direction: column;
+    }
+    .detalle-ruta-item {
+        min-width: auto;
     }
 }
